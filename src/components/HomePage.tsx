@@ -121,7 +121,7 @@ const HomePage = () => {
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
-        className="relative z-10 -mt-2 mb-2 flex items-center justify-center"
+        className="relative z-10 mt-3 mb-4 flex items-center justify-center"
       >
         <button
           onClick={() =>
