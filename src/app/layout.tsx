@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import { Header } from '@/components/common/Header';
 import { DarkModeProvider } from '@/context/DarkModeContext';
 import "./globals.css";
@@ -33,6 +34,7 @@ export default function RootLayout({
           <Header />
           {children}
         </DarkModeProvider>
+        <Analytics />
       </body>
     </html>
   );
