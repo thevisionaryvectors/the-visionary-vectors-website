@@ -70,31 +70,31 @@ const projectMilestones: Array<{
   type: 'github' | 'milestone' | 'blog';
 }> = [
    {
-    id: 'github-sentiment',
-    title: 'Sentiment Classifier with PyTorch (Feedforward NN)',
-    description: 'Basic NN using PyTorch for sentiment analysis',
-    date: new Date('2025-10-24'),
-    type: 'github'
-  },
-  {
-    id: 'potential-blog-1',
-    title: 'From RNNs to Transformers: Why Attention Wins',
+    id: 'blog-1',
+    title: 'Inside the Mind of a Perceptron: Watch It Learn!',
     description: '',
-    date: new Date('2025-10-27'),
+    date: new Date('2025-10-26'),
     type: 'blog'
   },
   {
-    id: 'github-rnn',
-    title: 'RNN vs LSTM Sentiment Classifier', 
+    id: 'blog-2',
+    title: 'What Happens Inside an MLP: A Step-by-Step Visual Walkthrough',
     description: '',
-    date: new Date('2025-10-31'),
-    type: 'github'
+    date: new Date('2025-10-29'),
+    type: 'blog'
   },
   {
-    id: 'potential-blog-2',
-    title: 'How a Transformer Encoder Works (Explained Simply)', 
+    id: 'blog-3',
+    title: 'Seeing Gradient Descent: How Neural Networks Learn', 
     description: '',
-    date: new Date('2025-11-03'),
+    date: new Date('2025-11-02'),
+    type: 'blog'
+  },
+  {
+    id: 'blog-4',
+    title: 'Build Your First ANN with Keras: No Code to Full Model', 
+    description: '',
+    date: new Date('2025-11-05'),
     type: 'blog'
   },
 ];
