@@ -586,7 +586,7 @@ export default function StudworkPage() {
       </section>
 
       {/* Timeline Section */}
-      <section className="py-20 px-8 bg-white dark:bg-black">
+      <section id="timeline" className="py-20 px-8 bg-white dark:bg-black">
         <div className="container mx-auto">
           <motion.div 
             className="text-center mb-16"
