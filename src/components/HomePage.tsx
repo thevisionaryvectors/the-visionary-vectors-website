@@ -124,9 +124,10 @@ const HomePage = () => {
         className="relative z-10 mt-3 mb-4 flex items-center justify-center"
       >
         <button
-          onClick={() =>
-            document.getElementById('creators-section')?.scrollIntoView({ behavior: 'smooth' })
-          }
+          onClick={() => {
+            window.location.hash = 'creators-section';
+            document.getElementById('creators-section')?.scrollIntoView({ behavior: 'smooth' });
+          }}
           className="text-center text-xs md:text-sm text-blue-400 dark:text-blue-500 hover:text-blue-500 dark:hover:text-blue-600 transition-all duration-300"
           style={{
             textShadow: 'rgb(59 130 246 / 0.1) 0px 0px 8px, rgb(59 130 246 / 0.05) 0px 0px 16px'
@@ -237,7 +238,10 @@ const HomePage = () => {
         className="relative z-10 -mt-6 mb-2 flex items-center justify-center"
       >
         <button
-          onClick={() => document.getElementById('blogs-section')?.scrollIntoView({ behavior: 'smooth' })}
+          onClick={() => {
+            window.location.hash = 'research-papers';
+            document.getElementById('research-papers')?.scrollIntoView({ behavior: 'smooth' });
+          }}
           className="text-center text-xs md:text-sm text-purple-500 dark:text-purple-500 hover:text-purple-600 dark:hover:text-purple-600 transition-all duration-300"
           style={{
             textShadow: 'rgb(168 85 247 / 0.1) 0px 0px 8px, rgb(168 85 247 / 0.05) 0px 0px 16px'
@@ -258,7 +262,7 @@ const HomePage = () => {
 
 
       {/* Upcoming Research Section */}
-      <section id="blogs-section" className="relative z-10 py-20 px-6">
+      <section id="research-papers" className="relative z-10 py-20 px-6">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}

@@ -485,6 +485,110 @@ export default function StudworkPage() {
               </motion.div> */}
 
             </div>
+
+            {/* View Timeline Link - Enhanced Creative Design */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ 
+                duration: 0.6,
+                delay: 1.4,
+                type: "spring",
+                stiffness: 80
+              }}
+              className="mt-10"
+            >
+              <motion.button
+                onClick={() => {
+                  window.location.hash = 'timeline';
+                  document.getElementById('timeline')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="group relative inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-purple-500/20 to-blue-500/20 hover:from-purple-500/30 hover:to-blue-500/30 border-2 border-white/40 hover:border-white/60 rounded-full text-base font-semibold transition-all duration-500 overflow-hidden backdrop-blur-sm"
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                {/* Animated gradient background */}
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-purple-400/30 to-blue-400/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  animate={{
+                    backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "linear"
+                  }}
+                  style={{ backgroundSize: '200% 200%' }}
+                />
+                
+                {/* Shimmer effect */}
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                  animate={{
+                    x: ['-100%', '100%']
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    repeatDelay: 1,
+                    ease: "easeInOut"
+                  }}
+                />
+
+                {/* Content */}
+                <div className="relative z-10 flex items-center gap-3">
+                  <span className="bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent font-bold">
+                    View What&apos;s Upcoming
+                  </span>
+                  
+                  {/* Animated arrow */}
+                  <motion.div
+                    animate={{ 
+                      x: [0, 4, 0],
+                    }}
+                    transition={{ 
+                      duration: 1.5,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                  </motion.div>
+                </div>
+
+                {/* Glowing border effect on hover */}
+                <div className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-400 to-blue-400 blur-xl animate-pulse"></div>
+                </div>
+              </motion.button>
+              
+              {/* Floating particles effect */}
+              <div className="relative h-0">
+                {[...Array(3)].map((_, i) => (
+                  <motion.div
+                    key={i}
+                    className="absolute w-1 h-1 bg-white/60 rounded-full"
+                    style={{
+                      left: `${30 + i * 20}%`,
+                      top: '-10px'
+                    }}
+                    animate={{
+                      y: [-20, -40, -20],
+                      opacity: [0, 1, 0],
+                      scale: [0, 1.5, 0]
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      delay: i * 0.4,
+                      ease: "easeInOut"
+                    }}
+                  />
+                ))}
+              </div>
+            </motion.div>
           </motion.div>
         </div>
       
@@ -513,6 +617,7 @@ export default function StudworkPage() {
                     window.open('https://github.com/ayushisahu222', '_blank');
                     break;
                   case 1: // Blogs
+                    window.location.hash = 'blogs';
                     document.getElementById('blogs')?.scrollIntoView({ behavior: 'smooth' });
                     break;
                   case 2: // Contact
@@ -700,7 +805,7 @@ export default function StudworkPage() {
                           <motion.div
                             className={`w-8 h-8 rounded-full border-2 flex items-center justify-center cursor-pointer transition-all duration-300 ${
                               item.status === 'completed'
-                                ? 'border-green-400 bg-green-100 dark:bg-green-700 dark:border-green-500 shadow-md shadow-green-200 dark:shadow-green-900'
+                                ? 'border-blue-400 bg-blue-100 dark:bg-blue-700 dark:border-blue-500 shadow-md shadow-blue-200 dark:shadow-blue-900'
                                 : isCurrentWeek
                                 ? 'border-purple-500 bg-purple-100 dark:bg-purple-500 dark:border-purple-100 shadow-md'
                                 : 'border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800'
@@ -728,13 +833,13 @@ export default function StudworkPage() {
                           <div className={`${
                             isCurrentWeek ? 'bg-purple-50 dark:bg-purple-900/30 border-purple-200 dark:border-purple-700 border' :
                             isFutureWeek ? 'bg-blue-50 dark:bg-blue-900/30 border-blue-100 dark:border-blue-700 border' :
-                            'bg-green-50 dark:bg-green-900/30 border-green-100 dark:border-green-700 border'
+                            'bg-blue-50 dark:bg-blue-900/30 border-blue-100 dark:border-blue-700 border'
                           } rounded-md p-2 transition-all duration-200`}>
                             <div className="flex items-center justify-between mb-1">
                               <h4 className={`font-semibold text-sm ${
                                 isCurrentWeek ? 'text-purple-600 dark:text-purple-500' :
                                 isFutureWeek ? 'text-blue-600 dark:text-blue-500' :
-                                item.status === 'completed' ? 'text-green-700 dark:text-green-400' : 'text-gray-600 dark:text-gray-300'
+                                item.status === 'completed' ? 'text-blue-700 dark:text-blue-400' : 'text-gray-600 dark:text-gray-300'
                               }`}>
                                 {item.title}
                               </h4>
@@ -749,14 +854,14 @@ export default function StudworkPage() {
                             <p className={`text-xs mb-2 ${
                               isCurrentWeek ? 'text-purple-600 dark:text-purple-300' :
                               isFutureWeek ? 'text-blue-600 dark:text-blue-300' :
-                              item.status === 'completed' ? 'text-green-600 dark:text-green-300' : 'text-gray-500 dark:text-gray-400'
+                              item.status === 'completed' ? 'text-blue-600 dark:text-blue-300' : 'text-gray-500 dark:text-gray-400'
                             }`}>
                               {item.description}
                             </p>
                             
                             <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
                               item.status === 'completed' 
-                                ? 'bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300' 
+                                ? 'bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300' 
                                 : isCurrentWeek
                                 ? 'bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300'
                                 : isFutureWeek
@@ -764,7 +869,7 @@ export default function StudworkPage() {
                                 : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300'
                             }`}>
                               <span className={`w-1.5 h-1.5 rounded-full mr-1 ${
-                                item.status === 'completed' ? 'bg-green-500 dark:bg-green-600' :
+                                item.status === 'completed' ? 'bg-blue-500 dark:bg-blue-600' :
                                 isCurrentWeek ? 'bg-purple-600 dark:bg-purple-700 animate-pulse' :
                                 isFutureWeek ? 'bg-blue-500 dark:bg-blue-600' : 'bg-gray-400'
                               }`}></span>
