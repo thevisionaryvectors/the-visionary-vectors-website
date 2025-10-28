@@ -73,7 +73,7 @@ const projectMilestones: Array<{
     id: 'blog-1',
     title: 'Inside the Mind of a Perceptron: Watch It Learn!',
     description: '',
-    date: new Date('2025-10-29'),
+    date: new Date('2025-10-31'),
     type: 'blog'
   },
   {
@@ -87,14 +87,14 @@ const projectMilestones: Array<{
     id: 'blog-3',
     title: 'Seeing Gradient Descent: How Neural Networks Learn', 
     description: '',
-    date: new Date('2025-11-05'),
+    date: new Date('2025-11-09'),
     type: 'blog'
   },
   {
     id: 'blog-4',
     title: 'Build Your First ANN with Keras: No Code to Full Model', 
     description: '',
-    date: new Date('2025-11-08'),
+    date: new Date('2025-11-14'),
     type: 'blog'
   },
 ];
