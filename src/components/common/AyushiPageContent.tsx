@@ -73,28 +73,28 @@ const projectMilestones: Array<{
     id: 'blog-1',
     title: 'Inside the Mind of a Perceptron: Watch It Learn!',
     description: '',
-    date: new Date('2025-11-03'),
+    date: new Date('2025-11-10'),
     type: 'blog'
   },
   {
     id: 'blog-2',
     title: 'What Happens Inside an MLP: A Step-by-Step Visual Walkthrough',
     description: '',
-    date: new Date('2025-11-07'),
+    date: new Date('2025-11-12'),
     type: 'blog'
   },
   {
     id: 'blog-3',
     title: 'Seeing Gradient Descent: How Neural Networks Learn', 
     description: '',
-    date: new Date('2025-11-11'),
+    date: new Date('2025-11-14'),
     type: 'blog'
   },
   {
     id: 'blog-4',
     title: 'Build Your First ANN with Keras: No Code to Full Model', 
     description: '',
-    date: new Date('2025-11-14'),
+    date: new Date('2025-11-16'),
     type: 'blog'
   },
 ];
