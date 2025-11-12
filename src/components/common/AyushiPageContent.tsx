@@ -2,6 +2,8 @@
 
 import { motion } from 'framer-motion';
 import { useState, useEffect, useMemo } from 'react';
+import Link from 'next/link';
+import { getAllInternalBlogs } from '@/lib/internalBlogs';
 
 interface ServiceCard {
   icon: string;
@@ -11,10 +13,8 @@ interface ServiceCard {
   price: string;
 }
 
-
-
 interface BlogPost {
-  id: number;
+  id: number | string;
   category: string;
   title: string;
   description: string;
@@ -24,6 +24,7 @@ interface BlogPost {
   categoryColor: string;
   url: string;
   hideAfterWeek?: boolean;
+  isInternal?: boolean; // Flag to indicate if it's an internal blog
 }
 
 interface TimelineItem {
@@ -62,41 +63,24 @@ const services: ServiceCard[] = [
 
 
 // Additional project milestones (non-blog items)
+// NOTE: Don't add blogs here - they're automatically included from internalBlogs.ts and externalBlogPosts
+// This array is only for GitHub projects, milestones, or other non-blog timeline items
 const projectMilestones: Array<{
   id: string;
   title: string;
   description: string;
   date: Date;
-  type: 'github' | 'milestone' | 'blog';
+  type: 'github' | 'milestone';
 }> = [
-   {
-    id: 'blog-1',
-    title: 'Inside the Mind of a Perceptron: Watch It Learn!',
-    description: '',
-    date: new Date('2025-11-10'),
-    type: 'blog'
-  },
-  {
-    id: 'blog-2',
-    title: 'What Happens Inside an MLP: A Step-by-Step Visual Walkthrough',
-    description: '',
-    date: new Date('2025-11-12'),
-    type: 'blog'
-  },
-  {
-    id: 'blog-3',
-    title: 'Seeing Gradient Descent: How Neural Networks Learn', 
-    description: '',
-    date: new Date('2025-11-14'),
-    type: 'blog'
-  },
-  {
-    id: 'blog-4',
-    title: 'Build Your First ANN with Keras: No Code to Full Model', 
-    description: '',
-    date: new Date('2025-11-16'),
-    type: 'blog'
-  },
+  // Add GitHub projects or other milestones here
+  // Example:
+  // {
+  //   id: 'github-sentiment-analysis',
+  //   title: 'Sentiment Classifier with PyTorch',
+  //   description: 'Built a deep learning model for sentiment analysis',
+  //   date: new Date('2025-11-01'),
+  //   type: 'github'
+  // }
 ];
 
 // Fully dynamic timeline that combines blog posts and project milestones
@@ -160,15 +144,15 @@ export default function StudworkPage() {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [showAllBlogs, setShowAllBlogs] = useState(false);
 
-  // Blog posts data
-  const blogPosts = [
+  // External blog posts data (Medium)
+  const externalBlogPosts: BlogPost[] = [
     {
       id: 1,
       category: "Machine Learning",
       title: "The Math I Need for Transformers",
       description: "Before diving deep into LLMs, I wanted to get comfortable with the math behind them so the theory actually makes sense. So, I started exploring the building blocks - dot products, softmax functions, cross-entropy loss, and backpropagation through attention...",
       readTime: "3 min read",
-      date: "Oct 2025",
+      date: "15th Oct 2025",
       publishDate: "2025-10-15",
       categoryColor: "text-purple-600",
       url: "https://medium.com/@thevisionaryvectorsblog/the-math-i-need-for-transformers-a023f394d42f",
@@ -180,7 +164,7 @@ export default function StudworkPage() {
       title: '"I Sus?" Understanding Isolation Forest and Local Outlier Factor',
       description: "These days, we rely heavily on Large Language Models (LLMs) for almost everything — from making predictions, finding anomalies, to even helping out with EDA. Let's be honest, we've all done it...",
       readTime: "3 min read",
-      date: "Apr 2025",
+      date: "28th Apr 2025",
       publishDate: "2025-04-28",
       categoryColor: "text-purple-600",
       url: "https://medium.com/@thevisionaryvectorsblog/lets-talk-anomaly-5c8bbccdcd50"
@@ -191,7 +175,7 @@ export default function StudworkPage() {
       title: "Divide and Cluster: The Art of K-Means",
       description: "So far, we’ve explored some powerful algorithms like Regression, SVM (Support Vector Machines), and Naive Bayes — all designed to work with labeled datasets, where each data point comes with a tag, a class, or a target value...",
       readTime: "4 min read",
-      date: "Feb 2025",
+      date: "24th Feb 2025",
       publishDate: "2025-02-24",
       categoryColor: "text-purple-600",
       url: "https://medium.com/@thevisionaryvectorsblog/divide-and-cluster-the-art-of-k-means-9a5e39bb0c28"
@@ -202,7 +186,7 @@ export default function StudworkPage() {
       title: "From Structured Predictions to Smarter Decision-Making with Decision Tree", 
       description: "Decision trees give us a systematic, logical approach to prediction and classification in the machine learning universe. They mimic human decision-making by breaking down problems into smaller steps...",
       readTime: "2 min read",
-      date: "Feb 2025",
+      date: "19th Feb 2025",
       publishDate: "2025-02-19",
       categoryColor: "text-purple-600",
       url: "https://medium.com/@thevisionaryvectorsblog/from-structured-predictions-to-smarter-decision-making-with-decision-tree-93c7815fb3e0"
@@ -213,7 +197,7 @@ export default function StudworkPage() {
       title: "The Terror of Bayes' Theorem",
       description: "Class 6th (as far as I can recollect) is when we are introduced to probability. Not gonna lie it used to be my favorite topic to study until Mr. Reverend Thomas Bayes was introduced and his theorem. I could never wrap my head around it...",
       readTime: "2 min read",
-      date: "Jan 2025",
+      date: "28th Jan 2025",
       publishDate: "2025-01-28",
       categoryColor: "text-blue-600",
       url: "https://medium.com/@thevisionaryvectorsblog/the-terror-of-bayes-theorem-6af8af985324"
@@ -224,7 +208,7 @@ export default function StudworkPage() {
       title: "SVM in 2025: Old School or Still Cool?",
       description: "Support Vector Machines (SVM) were once the go-to algorithm for classification tasks, offering high accuracy and robustness in structured data...",
       readTime: "2 min read", 
-      date: "Jan 2025",
+      date: "25th Jan 2025",
       publishDate: "2025-01-25",
       categoryColor: "text-purple-600",
       url: "https://medium.com/@thevisionaryvectorsblog/svm-in-2025-old-school-or-still-cool-baf7a3db95ef"
@@ -235,7 +219,7 @@ export default function StudworkPage() {
       title: "Is Your Model Cramming Too Hard?",
       description: "Finishing off our regression series, we bring to you the last article on it, covering Ridge and Lasso Regression.",
       readTime: "3 min read",
-      date: "Jan 2025", 
+      date: "22nd Jan 2025", 
       publishDate: "2025-01-22",
       categoryColor: "text-purple-600",
       url: "https://medium.com/@thevisionaryvectorsblog/is-your-model-cramming-too-hard-0a07cc5af63b"
@@ -246,7 +230,7 @@ export default function StudworkPage() {
       title: "Honey, I Shrunk the Dataset!",
       description: "So, I was working on this dataset with 1.2 million rows — sounds massive, right? Well, guess what? That’s just the tip of the data iceberg. Fun fact: this is only considered medium-sized data...",
       readTime: "3 min read",
-      date: "Jan 2025",
+      date: "20th Jan 2025",
       publishDate: "2025-01-20",
       categoryColor: "text-green-600",
       url: "https://medium.com/@thevisionaryvectorsblog/honey-i-shrunk-the-dataset-131992bc7965"
@@ -257,7 +241,7 @@ export default function StudworkPage() {
       title: "All the Statistics You Need to Know for Linear Regression",
       description: "Imagine you’re trying to figure out how much candy you can collect depending on how many houses you visit on Halloween. You want to draw a line that shows how your candy collection grows as you visit more houses...",
       readTime: "3 min read",
-      date: "Jan 2025",
+      date: "18th Jan 2025",
       publishDate: "2025-01-18",
       categoryColor: "text-blue-600",
       url: "https://medium.com/@thevisionaryvectorsblog/all-the-statistics-you-need-to-know-for-linear-regression-dd9ebd2fc595"
@@ -268,12 +252,31 @@ export default function StudworkPage() {
       title: "The Good Girl's Guide to EDA",
       description: "If you’re like me and greet a new dataset the way my dog reacts to a vacuum cleaner — paralysed by confusion, betrayal, and a touch of existential dread— this guide is for you...",
       readTime: "3 min read",
-      date: "Jan 2025", 
+      date: "13th Jan 2025", 
       publishDate: "2025-01-13",
       categoryColor: "text-green-600",
-      url: "https://medium.com/@thevisionaryvectorsblog/the-good-girls-guide-to-eda-98aaaaed6ec0"
+      url: "https://medium.com/@thevisionaryvectorsblog/the-good-girls-guide-to-eda-98aaaaed6ec0",
+      isInternal: false
     },
   ];
+
+  // Convert internal blogs to BlogPost format and combine with external blogs
+  const internalBlogs = getAllInternalBlogs();
+  const internalBlogPosts: BlogPost[] = internalBlogs.map(blog => ({
+    id: blog.id,
+    category: blog.category,
+    title: blog.title,
+    description: blog.description,
+    readTime: blog.readTime,
+    date: blog.date,
+    publishDate: blog.publishDate,
+    categoryColor: blog.categoryColor,
+    url: `/article/${blog.slug}`,
+    isInternal: true
+  }));
+
+  // Combine all blog posts (internal + external)
+  const blogPosts = [...internalBlogPosts, ...externalBlogPosts];
 
   // Function to get the latest published blog based on current date
   const getLatestPublishedBlog = () => {
@@ -287,7 +290,10 @@ export default function StudworkPage() {
   // Sort blog posts by date (newest first)
   // Memoize expensive calculations to prevent recalculation on every render
   const sortedBlogPosts = useMemo(() => {
-    return [...blogPosts].sort((a, b) => 
+    const now = new Date();
+    // Only show published blogs in the blog section
+    const publishedBlogs = blogPosts.filter(blog => new Date(blog.publishDate) <= now);
+    return publishedBlogs.sort((a, b) => 
       new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime()
     );
   }, [blogPosts]);
@@ -919,6 +925,96 @@ export default function StudworkPage() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {displayedBlogs.map((blog, index) => (
+              blog.isInternal ? (
+                <motion.div
+                  key={blog.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  whileHover={{ y: -10, scale: 1.02 }}
+                  className="group"
+                >
+                  <Link
+                    href={blog.url}
+                    className="relative bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-200 dark:border-gray-700 cursor-pointer block overflow-hidden"
+                  >
+                    {/* Gradient overlay that appears on hover */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 via-blue-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none"></div>
+                    
+                    {/* Animated corner accent */}
+                    <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-purple-500 to-blue-500 opacity-0 group-hover:opacity-20 blur-2xl transition-all duration-500 transform group-hover:scale-150"></div>
+                    
+                    <div className="relative z-10">
+                      {/* Category badge with icon */}
+                      <div className="flex items-center gap-2 mb-3">
+                        <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold ${blog.categoryColor} bg-opacity-10 backdrop-blur-sm border border-current border-opacity-20`}>
+                          <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z"/>
+                          </svg>
+                          {blog.category}
+                        </div>
+                      </div>
+                      
+                      {/* Title with enhanced hover effect */}
+                      <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-600 group-hover:to-blue-600 dark:group-hover:from-purple-400 dark:group-hover:to-blue-400 transition-all duration-300 line-clamp-2">
+                        {blog.title}
+                      </h3>
+                      
+                      {/* Description */}
+                      <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-3 leading-relaxed">
+                        {blog.description}
+                      </p>
+                      
+                      {/* Divider line */}
+                      <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-600 to-transparent mb-4"></div>
+                      
+                      {/* Meta information with icons */}
+                      <div className="flex justify-between items-center text-xs text-gray-500 dark:text-gray-400 mb-4">
+                        <div className="flex items-center gap-1">
+                          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                          <span>{blog.readTime}</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                          </svg>
+                          <span>{blog.date}</span>
+                        </div>
+                      </div>
+                      
+                      {/* Call to action with animation */}
+                      <div className="flex items-center justify-between">
+                        <motion.div 
+                          className="flex items-center text-sm font-semibold text-purple-600 dark:text-purple-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300"
+                          initial={{ x: 0 }}
+                          whileHover={{ x: 5 }}
+                        >
+                          <span>Read Article</span>
+                          <motion.svg 
+                            className="w-4 h-4 ml-2" 
+                            fill="currentColor" 
+                            viewBox="0 0 20 20"
+                            animate={{ x: [0, 5, 0] }}
+                            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                          >
+                            <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                          </motion.svg>
+                        </motion.div>
+                        
+                        {/* Green "On Site" badge instead of Medium logo */}
+                        <div className="px-2 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-xs font-semibold rounded-full flex items-center gap-1">
+                          <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                          </svg>
+                          On Site
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                </motion.div>
+              ) : (
               <motion.a
                 key={blog.id}
                 href={blog.url}
@@ -1006,6 +1102,7 @@ export default function StudworkPage() {
                   </div>
                 </div>
               </motion.a>
+              )
             ))}
           </div>
 

@@ -1,0 +1,352 @@
+export interface InternalBlog {
+  id: string;
+  slug: string;
+  title: string;
+  category: string;
+  categoryColor: string;
+  description: string;
+  readTime: string;
+  date: string;
+  publishDate: string;
+  author: string;
+  featuredImage?: string;
+  featuredImageCaption?: string;
+  sections: BlogSection[];
+}
+
+export interface BlogSection {
+  id: string;
+  title: string;
+  content: string;
+  mediaType?: 'image' | 'video' | 'gif' | 'chart';
+  mediaUrl?: string;
+  mediaCaption?: string;
+}
+
+// Internal blogs data - Add new blogs here
+export const internalBlogs: InternalBlog[] = [
+  {
+    id: 'perceptron-learning',
+    slug: 'inside-the-mind-of-a-perceptron-watch-it-learn',
+    title: 'Inside the Mind of a Perceptron: Watch It Learn!',
+    category: 'Deep Learning',
+    categoryColor: 'text-orange-600',
+    description: 'If you are like me who just wanted to learn about LLMs without learning about the simplest unit of neural networks, the perceptron, then this article is for you!',
+    readTime: '3 min read',
+    date: '12th Nov 2025',
+    publishDate: '2025-11-12',
+    author: 'Ayushi Sahu',
+    featuredImage: '/perceptron_image.png',
+    featuredImageCaption: 'Image from https://towardsdatascience.com/perceptrons-the-first-neural-network-model-8b3ee4513757/',
+    sections: [
+      {
+        id: 'what-is-perceptron',
+        title: 'What is a Perceptron?',
+        content: `Perceptron is the most basic unit of a neural network, its takes in multiple binary inputs and produces a single binary output. `,
+      },
+    {
+        id: 'interpretation-of-weights',
+        title: 'Interpretation of a Perceptron diagram',
+        content: `Now when we look at a perceptron diagram, we interpret the weights as indicators of how strongly each input xₙ influences the final decision.
+        For example, suppose we’re predicting the likelihood of Ayushi going to the office today. The inputs (or features) could include Bangalore’s weather, Ayushi’s mood, Workload, and whether there’s a Client Demo. If there’s a client demo scheduled, the probability of Ayushi going to the office increases — meaning that particular input has a higher weight compared to the others. The perceptron uses these weighted inputs to decide the final outcome.
+        So its basically just a binary classifier that takes multiple inputs, applies weights to them, sums them up, adds a bias, and then passes the result through an activation function to produce an output of 0 or 1.
+        `,
+      },
+      {
+        id: 'learning-process',
+        title: 'How to train a Perceptron?',
+        content: `At its core, training a perceptron means finding the best possible line that separates two classes.
+        In mathematical terms, this line can be represented as: 
+        Ax+By+C=0
+        
+        You can think of this as the decision boundary — the divider between the two categories.
+        If we express it in perceptron terms, it becomes: 
+        w₁x + w₂y + b = 0.
+
+        Here, w₁ and w₂ are the weights for inputs x and y, and b is the bias.
+
+        Let's see the step-by-step process of training a perceptron:
+        1. Initialize the weights
+        Start with small random values (or zeros). Initially, the perceptron has no idea which inputs matter.
+
+        2. Feed an input sample
+        Provide one training example (a set of input features and the expected output).
+
+        3. Calculate the output
+        Multiply each input by its weight, add them all up, include the bias, and apply the activation function (typically a step function that outputs 0 or 1). A step function simply checks whether the sum is above a certain threshold — if yes, it outputs 1; otherwise, 0.
+
+        4. Compare with the actual answer
+        If the prediction matches the actual label, great — nothing changes. If the prediction is wrong, the perceptron updates its weights.
+
+        5. Update the weights (Learning Rule)
+        The perceptron adjusts the weights in the direction that reduces the error.
+        The update rule is:
+        weight_new = weight_old + learning_rate × (actual_output - predicted_output) × input
+        Similarly, update the bias:
+        bias_new = bias_old + learning_rate × (actual_output - predicted_output)
+
+        Here, learning_rate is a small constant (like 0.1) that controls how big the weight updates are.
+        
+        6. Repeat for all training examples
+        Go through the dataset multiple times (called epochs) until:
+        • the predictions stop changing, or
+        • a maximum number of iterations is reached.`,
+
+      },
+      {
+        id: 'limitations',
+        title: 'Limitations',
+        content: `While the perceptron is a foundational concept in neural networks, it has some limitations:
+            • It can only solve linearly separable problems. Complex patterns require more advanced architectures like Multi-Layer Perceptrons (MLPs).
+            • It uses a step activation function, which is not differentiable. This limits the use of gradient-based optimization methods.
+            • It is sensitive to the choice of learning rate and initial weights.`
+
+      },
+      {
+        id: 'conclusion',
+        title: 'Conclusion',
+        content: `Even the massive language models we use today are built upon layers of perceptron-like units — each learning simple patterns that, together, form complex intelligence. Understanding the perceptron gives us insight into the fundamental building blocks of modern neural network models.`,
+      }
+    ]
+  },
+  {
+    id: 'mlp-walkthrough',
+    slug: 'mlp-walkthrough',
+    title: 'What Happens Inside an MLP: A Step-by-Step Visual Walkthrough',
+    category: 'Machine Learning',
+    categoryColor: 'text-purple-600',
+    description: 'Take a journey through the layers of a Multi-Layer Perceptron. Watch data transform as it flows through neurons, activations, and weights to produce predictions.',
+    readTime: '8 min read',
+    date: '14th Nov 2025',
+    publishDate: '2025-11-14',
+    author: 'Ayushi Sahu',
+    sections: [
+      {
+        id: 'introduction',
+        title: 'Introduction',
+        content: `You've heard about Multi-Layer Perceptrons (MLPs) and neural networks, but have you ever wondered what actually happens inside these networks when they process data? It's not magic—it's mathematics, and it's beautifully elegant.
+
+In this article, we're going on a visual journey through an MLP. We'll follow a single piece of data as it enters the network, gets transformed by hidden layers, passes through activation functions, and finally emerges as a prediction. By the end, you'll have an intuitive understanding of how these networks process information.`
+      },
+      {
+        id: 'architecture-overview',
+        title: 'The MLP Architecture',
+        content: `An MLP is called "multi-layer" because it has more than just an input and output layer—it has hidden layers in between. These hidden layers are what give neural networks their power to learn complex patterns.
+
+A typical MLP consists of:
+• **Input Layer**: Receives the raw features of your data
+• **Hidden Layer(s)**: Process and transform the data through weights, biases, and activation functions
+• **Output Layer**: Produces the final prediction or classification
+
+Think of it like a factory assembly line: raw materials (input) go through multiple processing stations (hidden layers) before becoming the final product (output).`
+      },
+      {
+        id: 'forward-propagation',
+        title: 'Forward Propagation: The Journey Begins',
+        content: `When data enters an MLP, it goes through a process called forward propagation. Here's what happens step by step:
+
+**Step 1: Input Layer**
+Your data enters as a vector of numbers. For example, if you're classifying images, each pixel value becomes an input neuron.
+
+**Step 2: First Hidden Layer**
+Each neuron in the first hidden layer:
+1. Receives ALL inputs from the previous layer
+2. Multiplies each input by its corresponding weight
+3. Sums all these weighted inputs
+4. Adds a bias term
+5. Passes the result through an activation function
+
+The formula: activation(Σ(weight × input) + bias)
+
+**Step 3: Subsequent Hidden Layers**
+The output from one layer becomes the input to the next. This transformation continues through each hidden layer, with the network learning increasingly abstract representations of the data.
+
+**Step 4: Output Layer**
+The final layer produces your prediction. For classification, this might use softmax to give probabilities for each class. For regression, it might be a single linear output.`
+      },
+      {
+        id: 'activation-functions',
+        title: 'Activation Functions: Adding Non-Linearity',
+        content: `Activation functions are crucial—they're what allows neural networks to learn complex, non-linear patterns. Without them, stacking multiple layers would be pointless because the network would still only learn linear relationships.
+
+**Common Activation Functions:**
+
+**ReLU (Rectified Linear Unit)**
+• Formula: f(x) = max(0, x)
+• Most popular for hidden layers
+• Fast to compute and helps avoid vanishing gradients
+• Simply sets negative values to 0, keeps positive values unchanged
+
+**Sigmoid**
+• Formula: f(x) = 1 / (1 + e^(-x))
+• Squashes values between 0 and 1
+• Often used in output layer for binary classification
+• Can suffer from vanishing gradients in deep networks
+
+**Tanh (Hyperbolic Tangent)**
+• Formula: f(x) = (e^x - e^(-x)) / (e^x + e^(-x))
+• Squashes values between -1 and 1
+• Zero-centered, which can help with learning
+• Also can suffer from vanishing gradients
+
+**Softmax (for output)**
+• Converts logits to probabilities that sum to 1
+• Perfect for multi-class classification
+• Formula: f(x_i) = e^(x_i) / Σ(e^(x_j))
+
+Each activation function adds a non-linear transformation, allowing the network to learn patterns that aren't just straight lines!`
+      },
+      {
+        id: 'weights-and-biases',
+        title: 'Weights and Biases: The Learnable Parameters',
+        content: `Every connection between neurons has a weight, and every neuron has a bias. These are the parameters that the network learns during training.
+
+**Weights**
+• Determine the strength of connections between neurons
+• Positive weights amplify signals, negative weights suppress them
+• The network adjusts these during training to minimize error
+• Think of them as the "importance" of each connection
+
+**Biases**
+• Allow neurons to activate even when all inputs are zero
+• Give the network flexibility to shift activation functions
+• Help the network fit data that doesn't pass through the origin
+• One bias per neuron
+
+**Why Both?**
+Weights let the network learn slopes (relationships between features), while biases let it shift those relationships up or down. Together, they give the network incredible flexibility to approximate complex functions.
+
+For a layer with n inputs and m neurons:
+• Number of weights: n × m
+• Number of biases: m
+• Total parameters: (n × m) + m
+
+This is why deep networks can have millions or billions of parameters!`
+      },
+      {
+        id: 'information-flow',
+        title: 'Watching Information Flow',
+        content: `Let's trace a single data point through a simple MLP:
+
+**Example: Classifying if a student will pass based on study hours and sleep hours**
+
+**Input Layer [4 hours of study, 7 hours of sleep]**
+↓
+**Hidden Layer 1 (3 neurons)**
+• Neuron 1: (4×0.5 + 7×0.3 + 0.1) = 4.2 → ReLU → 4.2
+• Neuron 2: (4×-0.2 + 7×0.8 - 0.5) = 4.9 → ReLU → 4.9
+• Neuron 3: (4×0.7 + 7×-0.1 + 0.2) = 2.7 → ReLU → 2.7
+↓
+**Hidden Layer 2 (2 neurons)**
+• Neuron 1: (4.2×0.6 + 4.9×0.3 + 2.7×0.1 + 0.2) = 4.25 → ReLU → 4.25
+• Neuron 2: (4.2×-0.3 + 4.9×0.5 + 2.7×0.4 - 0.1) = 2.42 → ReLU → 2.42
+↓
+**Output Layer (2 neurons for Pass/Fail)**
+• Pass: (4.25×0.8 + 2.42×0.5) = 4.61
+• Fail: (4.25×-0.6 + 2.42×0.3) = -1.82
+↓ (Apply Softmax)
+**Final Probabilities: [Pass: 99.8%, Fail: 0.2%]**
+
+Notice how the information gets transformed at each layer, with the network "extracting features" and making increasingly refined representations until it reaches a final decision!`
+      },
+      {
+        id: 'why-depth-matters',
+        title: 'Why Multiple Layers Matter',
+        content: `You might wonder: why use multiple hidden layers instead of just one large layer?
+
+**Hierarchical Feature Learning**
+Deep networks learn features hierarchically:
+• Early layers learn simple features (edges, colors, simple patterns)
+• Middle layers combine these into more complex features (shapes, textures)
+• Later layers learn high-level concepts (objects, faces, abstract patterns)
+
+**Efficiency**
+A deep network with multiple small layers can learn the same function as a shallow network with one huge layer, but with far fewer parameters. This is more efficient and generalizes better.
+
+**Biological Inspiration**
+The visual cortex in your brain works similarly—processing visual information through multiple layers, with each layer extracting increasingly complex features.
+
+**The Trade-off**
+More layers = more representational power, but also:
+• Harder to train (vanishing/exploding gradients)
+• More prone to overfitting
+• Slower to compute
+
+This is why network architecture design is both an art and a science!`
+      },
+      {
+        id: 'conclusion',
+        title: 'Bringing It All Together',
+        content: `Now you've seen what happens inside an MLP:
+
+1. **Data enters** as a vector of numbers
+2. **Each layer transforms** the data through weights, biases, and activations
+3. **Information flows forward** through the network
+4. **Each layer learns** different levels of abstraction
+5. **Final output** emerges as a prediction
+
+The beauty of MLPs lies in their simplicity and power. They're essentially just a series of matrix multiplications and non-linear transformations, yet they can learn to recognize faces, understand language, play games, and solve complex problems.
+
+Understanding this forward pass is crucial because it's the foundation for backpropagation (how the network learns) and for debugging when things go wrong.
+
+Next up: We'll explore gradient descent and see how these weights and biases actually get updated during training. Stay tuned! 🚀`
+      }
+    ]
+  },
+  {
+    id: 'gradient-descent-visual',
+    slug: 'gradient-descent-visual',
+    title: 'Seeing Gradient Descent: How Neural Networks Learn',
+    category: 'Machine Learning',
+    categoryColor: 'text-purple-600',
+    description: 'Visualize the optimization process that powers all neural networks. See how gradient descent navigates the loss landscape to find optimal weights.',
+    readTime: '7 min read',
+    date: '18th Nov 2025',
+    publishDate: '2025-11-18',
+    author: 'Ayushi Sahu',
+    sections: [
+      {
+        id: 'introduction',
+        title: 'Coming Soon',
+        content: 'This article will be published on November 14, 2025. Stay tuned for a visual guide to gradient descent!'
+      }
+    ]
+  },
+  {
+    id: 'keras-ann-tutorial',
+    slug: 'keras-ann-tutorial',
+    title: 'Build Your First ANN with Keras: No Code to Full Model',
+    category: 'Machine Learning',
+    categoryColor: 'text-purple-600',
+    description: 'A hands-on tutorial to build your first Artificial Neural Network using Keras. From zero to a working model in minutes!',
+    readTime: '10 min read',
+    date: '21st Nov 2025',
+    publishDate: '2025-11-21',
+    author: 'Ayushi Sahu',
+    sections: [
+      {
+        id: 'introduction',
+        title: 'Coming Soon',
+        content: 'This article will be published on November 16, 2025. Stay tuned for a complete guide to building ANNs with Keras!'
+      }
+    ]
+  },
+  // Add more internal blogs here as needed
+];
+
+// Helper function to get blog by slug
+export function getBlogBySlug(slug: string): InternalBlog | undefined {
+  return internalBlogs.find(blog => blog.slug === slug);
+}
+
+// Helper function to get all internal blogs
+export function getAllInternalBlogs(): InternalBlog[] {
+  return internalBlogs.sort((a, b) => 
+    new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime()
+  );
+}
+
+// Helper function to get recent internal blogs
+export function getRecentInternalBlogs(limit: number = 3): InternalBlog[] {
+  return getAllInternalBlogs().slice(0, limit);
+}
