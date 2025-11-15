@@ -137,7 +137,11 @@ const getTimelineData = (blogPosts: BlogPost[]): TimelineItem[] => {
   const allTimelineItems = [...blogTimelineItems, ...projectTimelineItems]
     .sort((a, b) => a.date.getTime() - b.date.getTime());
   
-  return allTimelineItems;
+  // Limit to maximum 4 items on timeline
+  // Show current/recently published (within 1 day) and upcoming articles
+  const limitedTimelineItems = allTimelineItems.slice(0, 4);
+  
+  return limitedTimelineItems;
 };
 
 const getNextUpcoming = (blogPosts: BlogPost[]) => {
