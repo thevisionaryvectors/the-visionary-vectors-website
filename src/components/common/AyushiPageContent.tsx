@@ -90,12 +90,22 @@ const getTimelineData = (blogPosts: BlogPost[]): TimelineItem[] => {
   // Create timeline items from blog posts
   const blogTimelineItems: TimelineItem[] = blogPosts
     .filter(blog => {
+      const blogDate = new Date(blog.publishDate);
+      
       // Only recent/upcoming blogs
-      if (new Date(blog.publishDate) < new Date('2025-10-01')) return false;
+      if (blogDate < new Date('2025-10-01')) return false;
+      
+      // Hide articles that were published more than 1 day ago
+      const oneDayAfterPublish = new Date(blogDate);
+      oneDayAfterPublish.setDate(blogDate.getDate() + 1);
+      oneDayAfterPublish.setHours(23, 59, 59, 999);
+      
+      if (today > oneDayAfterPublish) {
+        return false;
+      }
       
       // Hide blogs marked to be hidden after their week ends
       if (blog.hideAfterWeek) {
-        const blogDate = new Date(blog.publishDate);
         const endOfWeek = new Date(blogDate);
         endOfWeek.setDate(blogDate.getDate() + (7 - blogDate.getDay())); // End of the week (Sunday)
         endOfWeek.setHours(23, 59, 59, 999); // End of day

@@ -110,15 +110,15 @@ export const internalBlogs: InternalBlog[] = [
     ]
   },
   {
-    id: 'mlp-walkthrough',
-    slug: 'mlp-walkthrough',
-    title: 'What Happens Inside an MLP: A Step-by-Step Visual Walkthrough',
-    category: 'Machine Learning',
-    categoryColor: 'text-purple-600',
-    description: 'Take a journey through the layers of a Multi-Layer Perceptron. Watch data transform as it flows through neurons, activations, and weights to produce predictions.',
+    id: 'mlps-explained',
+    slug: 'mlps-explained',
+    title: 'MLPs Explained: Architecture, Notation & Forward Propagation',
+    category: 'Deep Learning',
+    categoryColor: 'text-orange-600',
+    description: 'Dive deep into Multi-Layer Perceptrons architecture, mathematical notation, and forward propagation process.',
     readTime: '8 min read',
-    date: '14th Nov 2025',
-    publishDate: '2025-11-14',
+    date: '15th Nov 2025',
+    publishDate: '2025-11-16',
     author: 'Ayushi Sahu',
     sections: [
       {
@@ -294,15 +294,15 @@ Next up: We'll explore gradient descent and see how these weights and biases act
     ]
   },
   {
-    id: 'gradient-descent-visual',
-    slug: 'gradient-descent-visual',
-    title: 'Seeing Gradient Descent: How Neural Networks Learn',
-    category: 'Machine Learning',
-    categoryColor: 'text-purple-600',
-    description: 'Visualize the optimization process that powers all neural networks. See how gradient descent navigates the loss landscape to find optimal weights.',
-    readTime: '7 min read',
+    id: 'anns-real-problems',
+    slug: 'anns-real-problems',
+    title: 'How ANNs Solve Real Problems: Classification & Regression Case Studies',
+    category: 'Deep Learning',
+    categoryColor: 'text-orange-600',
+    description: 'Explore how Artificial Neural Networks tackle real-world classification and regression problems through practical case studies.',
+    readTime: '9 min read',
     date: '18th Nov 2025',
-    publishDate: '2025-11-18',
+    publishDate: '2025-11-19',
     author: 'Ayushi Sahu',
     sections: [
       {
@@ -313,21 +313,40 @@ Next up: We'll explore gradient descent and see how these weights and biases act
     ]
   },
   {
-    id: 'keras-ann-tutorial',
-    slug: 'keras-ann-tutorial',
-    title: 'Build Your First ANN with Keras: No Code to Full Model',
-    category: 'Machine Learning',
-    categoryColor: 'text-purple-600',
-    description: 'A hands-on tutorial to build your first Artificial Neural Network using Keras. From zero to a working model in minutes!',
+    id: 'backpropagation-loss',
+    slug: 'backpropagation-loss',
+    title: 'Backpropagation & Loss Functions: The Math Behind Learning',
+    category: 'Deep Learning',
+    categoryColor: 'text-orange-600',
+    description: 'Understand the mathematical foundations of how neural networks learn through backpropagation and loss functions.',
     readTime: '10 min read',
-    date: '21st Nov 2025',
-    publishDate: '2025-11-21',
+    date: '22nd Nov 2025',
+    publishDate: '2025-11-23',
     author: 'Ayushi Sahu',
     sections: [
       {
         id: 'introduction',
         title: 'Coming Soon',
-        content: 'This article will be published on November 16, 2025. Stay tuned for a complete guide to building ANNs with Keras!'
+        content: 'This article will be published on November 22, 2025. Stay tuned for a deep dive into backpropagation and loss functions!'
+      }
+    ]
+  },
+  {
+    id: 'training-stability',
+    slug: 'training-stability',
+    title: 'Training Stability: Gradient Descent, Memoization & Vanishing Gradients',
+    category: 'Deep Learning',
+    categoryColor: 'text-orange-600',
+    description: 'Master the techniques for stable neural network training, including gradient descent optimization, memoization, and solving vanishing gradient problems.',
+    readTime: '11 min read',
+    date: '25th Nov 2025',
+    publishDate: '2025-11-24',
+    author: 'Ayushi Sahu',
+    sections: [
+      {
+        id: 'introduction',
+        title: 'Coming Soon',
+        content: 'This article will be published on November 25, 2025. Stay tuned for insights on training stability!'
       }
     ]
   },
