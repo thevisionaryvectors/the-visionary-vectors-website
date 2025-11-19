@@ -44,7 +44,7 @@ export const internalBlogs: InternalBlog[] = [
         title: 'What is a Perceptron?',
         content: `Perceptron is the most basic unit of a neural network, its takes in multiple binary inputs and produces a single binary output. `,
       },
-    {
+      {
         id: 'interpretation-of-weights',
         title: 'Interpretation of a Perceptron diagram',
         content: `Now when we look at a perceptron diagram, we interpret the weights as indicators of how strongly each input xₙ influences the final decision.
@@ -117,8 +117,8 @@ export const internalBlogs: InternalBlog[] = [
     categoryColor: 'text-orange-600',
     description: 'Dive deep into Multi-Layer Perceptrons architecture, mathematical notation, and forward propagation process.',
     readTime: '8 min read',
-    date: '19th Nov 2025',
-    publishDate: '2025-11-19',
+    date: '20th Nov 2025',
+    publishDate: '2025-11-20',
     author: 'Ayushi Sahu',
     sections: [
       {
@@ -301,8 +301,8 @@ Next up: We'll explore gradient descent and see how these weights and biases act
     categoryColor: 'text-orange-600',
     description: 'Explore how Artificial Neural Networks tackle real-world classification and regression problems through practical case studies.',
     readTime: '9 min read',
-    date: '22nd Nov 2025',
-    publishDate: '2025-11-22',
+    date: '23rd Nov 2025',
+    publishDate: '2025-11-23',
     author: 'Ayushi Sahu',
     sections: [
       {
@@ -320,8 +320,8 @@ Next up: We'll explore gradient descent and see how these weights and biases act
     categoryColor: 'text-orange-600',
     description: 'Understand the mathematical foundations of how neural networks learn through backpropagation and loss functions.',
     readTime: '10 min read',
-    date: '26th Nov 2025',
-    publishDate: '2025-11-26',
+    date: '27th Nov 2025',
+    publishDate: '2025-11-27',
     author: 'Ayushi Sahu',
     sections: [
       {
@@ -339,8 +339,8 @@ Next up: We'll explore gradient descent and see how these weights and biases act
     categoryColor: 'text-orange-600',
     description: 'Master the techniques for stable neural network training, including gradient descent optimization, memoization, and solving vanishing gradient problems.',
     readTime: '11 min read',
-    date: '29th Nov 2025',
-    publishDate: '2025-11-29',
+    date: '30th Nov 2025',
+    publishDate: '2025-11-30',
     author: 'Ayushi Sahu',
     sections: [
       {
@@ -358,8 +358,8 @@ Next up: We'll explore gradient descent and see how these weights and biases act
     categoryColor: 'text-orange-600',
     description: 'Learn essential techniques to improve neural network performance including feature scaling, regularization methods, and dropout.',
     readTime: '10 min read',
-    date: '5th Dec 2025',
-    publishDate: '2025-12-05',
+    date: '6th Dec 2025',
+    publishDate: '2025-12-06',
     author: 'Ayushi Sahu',
     sections: [
       {
@@ -377,8 +377,8 @@ Next up: We'll explore gradient descent and see how these weights and biases act
     categoryColor: 'text-orange-600',
     description: 'Explore the evolution of activation functions from classical sigmoid to modern variants like ReLU, Leaky ReLU, and GELU.',
     readTime: '8 min read',
-    date: '7th Dec 2025',
-    publishDate: '2025-12-07',
+    date: '8th Dec 2025',
+    publishDate: '2025-12-08',
     author: 'Ayushi Sahu',
     sections: [
       {
@@ -396,8 +396,8 @@ Next up: We'll explore gradient descent and see how these weights and biases act
     categoryColor: 'text-orange-600',
     description: 'Understand the importance of weight initialization and how Xavier and He initialization methods work.',
     readTime: '7 min read',
-    date: '9th Dec 2025',
-    publishDate: '2025-12-09',
+    date: '10th Dec 2025',
+    publishDate: '2025-12-10',
     author: 'Ayushi Sahu',
     sections: [
       {
@@ -415,8 +415,8 @@ Next up: We'll explore gradient descent and see how these weights and biases act
     categoryColor: 'text-orange-600',
     description: 'Learn how batch normalization stabilizes neural network training and accelerates convergence.',
     readTime: '9 min read',
-    date: '10th Dec 2025',
-    publishDate: '2025-12-10',
+    date: '11th Dec 2025',
+    publishDate: '2025-12-11',
     author: 'Ayushi Sahu',
     sections: [
       {
@@ -434,8 +434,8 @@ Next up: We'll explore gradient descent and see how these weights and biases act
     categoryColor: 'text-orange-600',
     description: 'Deep dive into optimization algorithms including Momentum, RMSProp, Adam, and their variants.',
     readTime: '12 min read',
-    date: '17th Dec 2025',
-    publishDate: '2025-12-17',
+    date: '18th Dec 2025',
+    publishDate: '2025-12-18',
     author: 'Ayushi Sahu',
     sections: [
       {
@@ -453,8 +453,8 @@ Next up: We'll explore gradient descent and see how these weights and biases act
     categoryColor: 'text-orange-600',
     description: 'Master hyperparameter tuning using Keras Tuner for optimal neural network performance.',
     readTime: '10 min read',
-    date: '18th Dec 2025',
-    publishDate: '2025-12-18',
+    date: '19th Dec 2025',
+    publishDate: '2025-12-19',
     author: 'Ayushi Sahu',
     sections: [
       {
@@ -472,8 +472,8 @@ Next up: We'll explore gradient descent and see how these weights and biases act
     categoryColor: 'text-orange-600',
     description: 'Learn the fundamentals of Convolutional Neural Networks including convolution, pooling, and classic architectures.',
     readTime: '11 min read',
-    date: '25th Dec 2025',
-    publishDate: '2025-12-25',
+    date: '26th Dec 2025',
+    publishDate: '2025-12-26',
     author: 'Ayushi Sahu',
     sections: [
       {
@@ -491,8 +491,8 @@ Next up: We'll explore gradient descent and see how these weights and biases act
     categoryColor: 'text-orange-600',
     description: 'Explore the inner workings of CNNs including backpropagation, transfer learning, and feature visualization.',
     readTime: '10 min read',
-    date: '12th Jan 2026',
-    publishDate: '2026-01-12',
+    date: '13th Jan 2026',
+    publishDate: '2026-01-13',
     author: 'Ayushi Sahu',
     sections: [
       {
@@ -510,8 +510,8 @@ Next up: We'll explore gradient descent and see how these weights and biases act
     categoryColor: 'text-orange-600',
     description: 'Build advanced CNNs using transfer learning and Keras Functional API for complex architectures.',
     readTime: '12 min read',
-    date: '14th Jan 2026',
-    publishDate: '2026-01-14',
+    date: '15th Jan 2026',
+    publishDate: '2026-01-15',
     author: 'Ayushi Sahu',
     sections: [
       {
@@ -529,8 +529,8 @@ Next up: We'll explore gradient descent and see how these weights and biases act
     categoryColor: 'text-orange-600',
     description: 'Understand Recurrent Neural Networks, their architecture, training with BPTT, and common challenges.',
     readTime: '11 min read',
-    date: '20th Jan 2026',
-    publishDate: '2026-01-20',
+    date: '21st Jan 2026',
+    publishDate: '2026-01-21',
     author: 'Ayushi Sahu',
     sections: [
       {
@@ -548,8 +548,8 @@ Next up: We'll explore gradient descent and see how these weights and biases act
     categoryColor: 'text-orange-600',
     description: 'Explore LSTM and GRU architectures and how they solve the vanishing gradient problem in sequence modeling.',
     readTime: '10 min read',
-    date: '25th Jan 2026',
-    publishDate: '2026-01-25',
+    date: '26th Jan 2026',
+    publishDate: '2026-01-26',
     author: 'Ayushi Sahu',
     sections: [
       {
@@ -567,8 +567,8 @@ Next up: We'll explore gradient descent and see how these weights and biases act
     categoryColor: 'text-orange-600',
     description: 'Trace the evolution from LSTM networks to modern GPT models and understand the key innovations.',
     readTime: '13 min read',
-    date: '26th Jan 2026',
-    publishDate: '2026-01-26',
+    date: '27th Jan 2026',
+    publishDate: '2026-01-27',
     author: 'Ayushi Sahu',
     sections: [
       {
@@ -586,8 +586,8 @@ Next up: We'll explore gradient descent and see how these weights and biases act
     categoryColor: 'text-orange-600',
     description: 'Learn how sequence-to-sequence models and attention mechanisms enable context understanding.',
     readTime: '11 min read',
-    date: '30th Jan 2026',
-    publishDate: '2026-01-30',
+    date: '31st Jan 2026',
+    publishDate: '2026-01-31',
     author: 'Ayushi Sahu',
     sections: [
       {
@@ -605,8 +605,8 @@ Next up: We'll explore gradient descent and see how these weights and biases act
     categoryColor: 'text-orange-600',
     description: 'Understand the transformer architecture with detailed explanations of self-attention, multi-head attention, and positional encoding.',
     readTime: '14 min read',
-    date: '8th Feb 2026',
-    publishDate: '2026-02-08',
+    date: '9th Feb 2026',
+    publishDate: '2026-02-09',
     author: 'Ayushi Sahu',
     sections: [
       {
@@ -624,8 +624,8 @@ Next up: We'll explore gradient descent and see how these weights and biases act
     categoryColor: 'text-orange-600',
     description: 'Deep dive into transformer internals including encoder-decoder architecture, masking strategies, and inference.',
     readTime: '12 min read',
-    date: '13th Feb 2026',
-    publishDate: '2026-02-13',
+    date: '14th Feb 2026',
+    publishDate: '2026-02-14',
     author: 'Ayushi Sahu',
     sections: [
       {
@@ -645,7 +645,7 @@ export function getBlogBySlug(slug: string): InternalBlog | undefined {
 
 // Helper function to get all internal blogs
 export function getAllInternalBlogs(): InternalBlog[] {
-  return internalBlogs.sort((a, b) => 
+  return internalBlogs.sort((a, b) =>
     new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime()
   );
 }
