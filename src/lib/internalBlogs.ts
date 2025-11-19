@@ -212,8 +212,8 @@ export const internalBlogs: InternalBlog[] = [
     categoryColor: 'text-orange-600',
     description: 'Explore the inner workings of CNNs including backpropagation, transfer learning, and feature visualization.',
     readTime: '10 min read',
-    date: '28th Dec 2025',
-    publishDate: '2025-12-28',
+    date: '11th Jan 2026',
+    publishDate: '2026-01-11',
     author: 'Ayushi Sahu',
     sections: [
       {
@@ -231,8 +231,8 @@ export const internalBlogs: InternalBlog[] = [
     categoryColor: 'text-orange-600',
     description: 'Build advanced CNNs using transfer learning and Keras Functional API for complex architectures.',
     readTime: '12 min read',
-    date: '4th Jan 2026',
-    publishDate: '2026-01-04',
+    date: '18th Jan 2026',
+    publishDate: '2026-01-18',
     author: 'Ayushi Sahu',
     sections: [
       {
@@ -250,14 +250,14 @@ export const internalBlogs: InternalBlog[] = [
     categoryColor: 'text-orange-600',
     description: 'Understand Recurrent Neural Networks, their architecture, training with BPTT, and common challenges.',
     readTime: '11 min read',
-    date: '11th Jan 2026',
-    publishDate: '2026-01-11',
+    date: '25th Jan 2026',
+    publishDate: '2026-01-25',
     author: 'Ayushi Sahu',
     sections: [
       {
         id: 'introduction',
         title: 'Coming Soon',
-        content: 'This article will be published on January 11, 2026.'
+        content: 'This article will be published on January 25, 2026.'
       }
     ]
   },
@@ -269,8 +269,8 @@ export const internalBlogs: InternalBlog[] = [
     categoryColor: 'text-orange-600',
     description: 'Explore LSTM and GRU architectures and how they solve the vanishing gradient problem in sequence modeling.',
     readTime: '10 min read',
-    date: '18th Jan 2026',
-    publishDate: '2026-01-18',
+    date: '1st Feb 2026',
+    publishDate: '2026-02-01',
     author: 'Ayushi Sahu',
     sections: [
       {
@@ -288,44 +288,6 @@ export const internalBlogs: InternalBlog[] = [
     categoryColor: 'text-orange-600',
     description: 'Trace the evolution from LSTM networks to modern GPT models and understand the key innovations.',
     readTime: '13 min read',
-    date: '25th Jan 2026',
-    publishDate: '2026-01-25',
-    author: 'Ayushi Sahu',
-    sections: [
-      {
-        id: 'introduction',
-        title: 'Coming Soon',
-        content: 'This article will be published on January 25, 2026.'
-      }
-    ]
-  },
-  {
-    id: 'seq2seq-attention',
-    slug: 'seq2seq-attention',
-    title: 'Seq2Seq & Attention',
-    category: 'Deep Learning',
-    categoryColor: 'text-orange-600',
-    description: 'Learn how sequence-to-sequence models and attention mechanisms enable context understanding.',
-    readTime: '11 min read',
-    date: '1st Feb 2026',
-    publishDate: '2026-02-01',
-    author: 'Ayushi Sahu',
-    sections: [
-      {
-        id: 'introduction',
-        title: 'Coming Soon',
-        content: 'This article will be published on February 1, 2026.'
-      }
-    ]
-  },
-  {
-    id: 'transformers-explained',
-    slug: 'transformers-explained',
-    title: 'Transformers Explained',
-    category: 'Deep Learning',
-    categoryColor: 'text-orange-600',
-    description: 'Understand the transformer architecture with detailed explanations of self-attention, multi-head attention, and positional encoding.',
-    readTime: '14 min read',
     date: '8th Feb 2026',
     publishDate: '2026-02-08',
     author: 'Ayushi Sahu',
@@ -338,6 +300,44 @@ export const internalBlogs: InternalBlog[] = [
     ]
   },
   {
+    id: 'seq2seq-attention',
+    slug: 'seq2seq-attention',
+    title: 'Seq2Seq & Attention',
+    category: 'Deep Learning',
+    categoryColor: 'text-orange-600',
+    description: 'Learn how sequence-to-sequence models and attention mechanisms enable context understanding.',
+    readTime: '11 min read',
+    date: '15th Feb 2026',
+    publishDate: '2026-02-15',
+    author: 'Ayushi Sahu',
+    sections: [
+      {
+        id: 'introduction',
+        title: 'Coming Soon',
+        content: 'This article will be published on February 15, 2026.'
+      }
+    ]
+  },
+  {
+    id: 'transformers-explained',
+    slug: 'transformers-explained',
+    title: 'Transformers Explained',
+    category: 'Deep Learning',
+    categoryColor: 'text-orange-600',
+    description: 'Understand the transformer architecture with detailed explanations of self-attention, multi-head attention, and positional encoding.',
+    readTime: '14 min read',
+    date: '22nd Feb 2026',
+    publishDate: '2026-02-22',
+    author: 'Ayushi Sahu',
+    sections: [
+      {
+        id: 'introduction',
+        title: 'Coming Soon',
+        content: 'This article will be published on February 22, 2026.'
+      }
+    ]
+  },
+  {
     id: 'inside-transformer',
     slug: 'inside-the-transformer',
     title: 'Inside the Transformer',
@@ -345,8 +345,8 @@ export const internalBlogs: InternalBlog[] = [
     categoryColor: 'text-orange-600',
     description: 'Deep dive into transformer internals including encoder-decoder architecture, masking strategies, and inference.',
     readTime: '12 min read',
-    date: '15th Feb 2026',
-    publishDate: '2026-02-15',
+    date: '01th Mar 2026',
+    publishDate: '2026-03-01',
     author: 'Ayushi Sahu',
     sections: [
       {
