@@ -111,8 +111,8 @@ export const internalBlogs: InternalBlog[] = [
   },
   {
     id: 'anns-real-problems',
-    slug: 'anns-real-problems',
-    title: 'How ANNs Solve Real Problems: Classification & Regression Case Studies',
+    slug: 'how-anns-solve-real-problems',
+    title: 'How ANNs Solve Real Problems',
     category: 'Deep Learning',
     categoryColor: 'text-orange-600',
     description: 'Explore how Artificial Neural Networks tackle real-world classification and regression problems through practical case studies.',
@@ -124,36 +124,17 @@ export const internalBlogs: InternalBlog[] = [
       {
         id: 'introduction',
         title: 'Coming Soon',
-        content: 'This article will be published on November 14, 2025. Stay tuned for a visual guide to gradient descent!'
-      }
-    ]
-  },
-  {
-    id: 'backpropagation-loss',
-    slug: 'backpropagation-loss',
-    title: 'Backpropagation & Loss Functions: The Math Behind Learning',
-    category: 'Deep Learning',
-    categoryColor: 'text-orange-600',
-    description: 'Understand the mathematical foundations of how neural networks learn through backpropagation and loss functions.',
-    readTime: '10 min read',
-    date: '27th Nov 2025',
-    publishDate: '2025-11-27',
-    author: 'Ayushi Sahu',
-    sections: [
-      {
-        id: 'introduction',
-        title: 'Coming Soon',
-        content: 'This article will be published on November 22, 2025. Stay tuned for a deep dive into backpropagation and loss functions!'
+        content: 'This article will be published on November 23, 2025.'
       }
     ]
   },
   {
     id: 'training-stability',
     slug: 'training-stability',
-    title: 'Training Stability: Gradient Descent, Memoization & Vanishing Gradients',
+    title: 'Training Stability',
     category: 'Deep Learning',
     categoryColor: 'text-orange-600',
-    description: 'Master the techniques for stable neural network training, including gradient descent optimization, memoization, and solving vanishing gradient problems.',
+    description: 'Master the techniques for stable neural network training, including gradient descent optimization and solving vanishing gradient problems.',
     readTime: '11 min read',
     date: '30th Nov 2025',
     publishDate: '2025-11-30',
@@ -162,115 +143,39 @@ export const internalBlogs: InternalBlog[] = [
       {
         id: 'introduction',
         title: 'Coming Soon',
-        content: 'This article will be published on November 25, 2025. Stay tuned for insights on training stability!'
-      }
-    ]
-  },
-  {
-    id: 'improving-nn-performance',
-    slug: 'improving-nn-performance',
-    title: 'Improving Neural Network Performance: Scaling, Regularization & Dropout',
-    category: 'Deep Learning',
-    categoryColor: 'text-orange-600',
-    description: 'Learn essential techniques to improve neural network performance including feature scaling, regularization methods, and dropout.',
-    readTime: '10 min read',
-    date: '6th Dec 2025',
-    publishDate: '2025-12-06',
-    author: 'Ayushi Sahu',
-    sections: [
-      {
-        id: 'introduction',
-        title: 'Coming Soon',
-        content: 'This article will be published on December 1, 2025.'
+        content: 'This article will be published on November 30, 2025.'
       }
     ]
   },
   {
     id: 'activation-functions',
-    slug: 'activation-functions',
-    title: 'Activation Functions: From Sigmoid to ReLU and Modern Variants',
+    slug: 'activation-functions-modern-variants',
+    title: 'Activation Functions: Modern Variants',
     category: 'Deep Learning',
     categoryColor: 'text-orange-600',
     description: 'Explore the evolution of activation functions from classical sigmoid to modern variants like ReLU, Leaky ReLU, and GELU.',
     readTime: '8 min read',
-    date: '8th Dec 2025',
-    publishDate: '2025-12-08',
+    date: '7th Dec 2025',
+    publishDate: '2025-12-07',
     author: 'Ayushi Sahu',
     sections: [
       {
         id: 'introduction',
         title: 'Coming Soon',
-        content: 'This article will be published on December 3, 2025.'
-      }
-    ]
-  },
-  {
-    id: 'weight-initialization',
-    slug: 'weight-initialization',
-    title: 'Weight Initialization: Why It Matters & How Xavier/He Work',
-    category: 'Deep Learning',
-    categoryColor: 'text-orange-600',
-    description: 'Understand the importance of weight initialization and how Xavier and He initialization methods work.',
-    readTime: '7 min read',
-    date: '10th Dec 2025',
-    publishDate: '2025-12-10',
-    author: 'Ayushi Sahu',
-    sections: [
-      {
-        id: 'introduction',
-        title: 'Coming Soon',
-        content: 'This article will be published on December 5, 2025.'
-      }
-    ]
-  },
-  {
-    id: 'batch-normalization',
-    slug: 'batch-normalization',
-    title: 'Batch Normalization: How It Stabilizes Neural Networks',
-    category: 'Deep Learning',
-    categoryColor: 'text-orange-600',
-    description: 'Learn how batch normalization stabilizes neural network training and accelerates convergence.',
-    readTime: '9 min read',
-    date: '11th Dec 2025',
-    publishDate: '2025-12-11',
-    author: 'Ayushi Sahu',
-    sections: [
-      {
-        id: 'introduction',
-        title: 'Coming Soon',
-        content: 'This article will be published on December 6, 2025.'
+        content: 'This article will be published on December 7, 2025.'
       }
     ]
   },
   {
     id: 'optimizers-explained',
     slug: 'optimizers-explained',
-    title: 'Optimizers Explained: Momentum, RMSProp, Adam & More',
+    title: 'Optimizers Explained',
     category: 'Deep Learning',
     categoryColor: 'text-orange-600',
     description: 'Deep dive into optimization algorithms including Momentum, RMSProp, Adam, and their variants.',
     readTime: '12 min read',
-    date: '18th Dec 2025',
-    publishDate: '2025-12-18',
-    author: 'Ayushi Sahu',
-    sections: [
-      {
-        id: 'introduction',
-        title: 'Coming Soon',
-        content: 'This article will be published on December 13, 2025.'
-      }
-    ]
-  },
-  {
-    id: 'hyperparameter-tuning',
-    slug: 'hyperparameter-tuning',
-    title: 'Hyperparameter Tuning with Keras Tuner',
-    category: 'Deep Learning',
-    categoryColor: 'text-orange-600',
-    description: 'Master hyperparameter tuning using Keras Tuner for optimal neural network performance.',
-    readTime: '10 min read',
-    date: '19th Dec 2025',
-    publishDate: '2025-12-19',
+    date: '14th Dec 2025',
+    publishDate: '2025-12-14',
     author: 'Ayushi Sahu',
     sections: [
       {
@@ -283,13 +188,13 @@ export const internalBlogs: InternalBlog[] = [
   {
     id: 'cnn-fundamentals',
     slug: 'cnn-fundamentals',
-    title: 'CNN Fundamentals: Convolution, Pooling & Classic Architectures',
+    title: 'CNN Fundamentals',
     category: 'Deep Learning',
     categoryColor: 'text-orange-600',
     description: 'Learn the fundamentals of Convolutional Neural Networks including convolution, pooling, and classic architectures.',
     readTime: '11 min read',
-    date: '26th Dec 2025',
-    publishDate: '2025-12-26',
+    date: '21st Dec 2025',
+    publishDate: '2025-12-21',
     author: 'Ayushi Sahu',
     sections: [
       {
@@ -301,157 +206,156 @@ export const internalBlogs: InternalBlog[] = [
   },
   {
     id: 'inside-cnn',
-    slug: 'inside-cnn',
-    title: 'Inside a CNN: Backpropagation, Transfer Learning & Feature Maps',
+    slug: 'inside-a-cnn',
+    title: 'Inside a CNN',
     category: 'Deep Learning',
     categoryColor: 'text-orange-600',
     description: 'Explore the inner workings of CNNs including backpropagation, transfer learning, and feature visualization.',
     readTime: '10 min read',
-    date: '13th Jan 2026',
-    publishDate: '2026-01-13',
+    date: '28th Dec 2025',
+    publishDate: '2025-12-28',
     author: 'Ayushi Sahu',
     sections: [
       {
         id: 'introduction',
         title: 'Coming Soon',
-        content: 'This article will be published on January 8, 2026.'
+        content: 'This article will be published on December 28, 2025.'
       }
     ]
   },
   {
     id: 'transfer-learning-functional-api',
     slug: 'transfer-learning-functional-api',
-    title: 'Transfer Learning & Functional API: Building Advanced CNNs',
+    title: 'Transfer Learning & Functional API',
     category: 'Deep Learning',
     categoryColor: 'text-orange-600',
     description: 'Build advanced CNNs using transfer learning and Keras Functional API for complex architectures.',
     readTime: '12 min read',
-    date: '15th Jan 2026',
-    publishDate: '2026-01-15',
+    date: '4th Jan 2026',
+    publishDate: '2026-01-04',
     author: 'Ayushi Sahu',
     sections: [
       {
         id: 'introduction',
         title: 'Coming Soon',
-        content: 'This article will be published on January 10, 2026.'
+        content: 'This article will be published on January 4, 2026.'
       }
     ]
   },
   {
     id: 'rnns-architecture',
-    slug: 'rnns-architecture',
-    title: 'RNNs: Architecture, Training, BPTT & Common Issues',
+    slug: 'rnns-architecture-issues',
+    title: 'RNNs: Architecture & Issues',
     category: 'Deep Learning',
     categoryColor: 'text-orange-600',
     description: 'Understand Recurrent Neural Networks, their architecture, training with BPTT, and common challenges.',
     readTime: '11 min read',
-    date: '21st Jan 2026',
-    publishDate: '2026-01-21',
+    date: '11th Jan 2026',
+    publishDate: '2026-01-11',
     author: 'Ayushi Sahu',
     sections: [
       {
         id: 'introduction',
         title: 'Coming Soon',
-        content: 'This article will be published on January 16, 2026.'
+        content: 'This article will be published on January 11, 2026.'
       }
     ]
   },
   {
     id: 'lstm-gru',
-    slug: 'lstm-gru',
-    title: 'LSTM & GRU: Sequence Modeling Powerhouses',
+    slug: 'lstm-gru-powerhouses',
+    title: 'LSTM & GRU Powerhouses',
     category: 'Deep Learning',
     categoryColor: 'text-orange-600',
     description: 'Explore LSTM and GRU architectures and how they solve the vanishing gradient problem in sequence modeling.',
     readTime: '10 min read',
-    date: '26th Jan 2026',
-    publishDate: '2026-01-26',
+    date: '18th Jan 2026',
+    publishDate: '2026-01-18',
     author: 'Ayushi Sahu',
     sections: [
       {
         id: 'introduction',
         title: 'Coming Soon',
-        content: 'This article will be published on January 21, 2026.'
+        content: 'This article will be published on January 18, 2026.'
       }
     ]
   },
   {
     id: 'lstm-to-gpt',
-    slug: 'lstm-to-gpt',
-    title: 'From LSTM to GPT: The Evolution of Large Language Models',
+    slug: 'from-lstm-to-gpt',
+    title: 'From LSTM to GPT',
     category: 'Deep Learning',
     categoryColor: 'text-orange-600',
     description: 'Trace the evolution from LSTM networks to modern GPT models and understand the key innovations.',
     readTime: '13 min read',
-    date: '27th Jan 2026',
-    publishDate: '2026-01-27',
+    date: '25th Jan 2026',
+    publishDate: '2026-01-25',
     author: 'Ayushi Sahu',
     sections: [
       {
         id: 'introduction',
         title: 'Coming Soon',
-        content: 'This article will be published on January 22, 2026.'
+        content: 'This article will be published on January 25, 2026.'
       }
     ]
   },
   {
     id: 'seq2seq-attention',
     slug: 'seq2seq-attention',
-    title: 'Seq2Seq & Attention: How Models Learn Context',
+    title: 'Seq2Seq & Attention',
     category: 'Deep Learning',
     categoryColor: 'text-orange-600',
     description: 'Learn how sequence-to-sequence models and attention mechanisms enable context understanding.',
     readTime: '11 min read',
-    date: '31st Jan 2026',
-    publishDate: '2026-01-31',
+    date: '1st Feb 2026',
+    publishDate: '2026-02-01',
     author: 'Ayushi Sahu',
     sections: [
       {
         id: 'introduction',
         title: 'Coming Soon',
-        content: 'This article will be published on January 26, 2026.'
+        content: 'This article will be published on February 1, 2026.'
       }
     ]
   },
   {
     id: 'transformers-explained',
     slug: 'transformers-explained',
-    title: 'Transformers Explained: Self-Attention, Multi-Head Attention & Positional Encoding',
+    title: 'Transformers Explained',
     category: 'Deep Learning',
     categoryColor: 'text-orange-600',
     description: 'Understand the transformer architecture with detailed explanations of self-attention, multi-head attention, and positional encoding.',
     readTime: '14 min read',
-    date: '9th Feb 2026',
-    publishDate: '2026-02-09',
+    date: '8th Feb 2026',
+    publishDate: '2026-02-08',
     author: 'Ayushi Sahu',
     sections: [
       {
         id: 'introduction',
         title: 'Coming Soon',
-        content: 'This article will be published on February 4, 2026.'
+        content: 'This article will be published on February 8, 2026.'
       }
     ]
   },
   {
     id: 'inside-transformer',
-    slug: 'inside-transformer',
-    title: 'Inside the Transformer: Encoder, Decoder, Masking & Inference',
+    slug: 'inside-the-transformer',
+    title: 'Inside the Transformer',
     category: 'Deep Learning',
     categoryColor: 'text-orange-600',
     description: 'Deep dive into transformer internals including encoder-decoder architecture, masking strategies, and inference.',
     readTime: '12 min read',
-    date: '14th Feb 2026',
-    publishDate: '2026-02-14',
+    date: '15th Feb 2026',
+    publishDate: '2026-02-15',
     author: 'Ayushi Sahu',
     sections: [
       {
         id: 'introduction',
         title: 'Coming Soon',
-        content: 'This article will be published on February 9, 2026.'
+        content: 'This article will be published on February 15, 2026.'
       }
     ]
-  },
-  // Add more internal blogs here as needed
+  }
 ];
 
 // Helper function to get blog by slug
