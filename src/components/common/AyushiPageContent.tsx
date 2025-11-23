@@ -937,7 +937,7 @@ export default function StudworkPage() {
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {displayedBlogs.map((blog, index) => (
               blog.isInternal ? (
                 <motion.div
@@ -946,11 +946,11 @@ export default function StudworkPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   whileHover={{ y: -10, scale: 1.02 }}
-                  className="group"
+                  className="group h-full"
                 >
                   <Link
                     href={blog.url}
-                    className="relative bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-200 dark:border-gray-700 cursor-pointer block overflow-hidden"
+                    className="relative bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-200 dark:border-gray-700 cursor-pointer block overflow-hidden h-full flex flex-col"
                   >
                     {/* Gradient overlay that appears on hover */}
                     <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 via-blue-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none"></div>
@@ -958,7 +958,7 @@ export default function StudworkPage() {
                     {/* Animated corner accent */}
                     <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-purple-500 to-blue-500 opacity-0 group-hover:opacity-20 blur-2xl transition-all duration-500 transform group-hover:scale-150"></div>
                     
-                    <div className="relative z-10">
+                    <div className="relative z-10 flex flex-col h-full">
                       {/* Category badge with icon */}
                       <div className="flex items-center gap-2 mb-3">
                         <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold ${blog.categoryColor} bg-opacity-10 backdrop-blur-sm border border-current border-opacity-20`}>
@@ -970,12 +970,12 @@ export default function StudworkPage() {
                       </div>
                       
                       {/* Title with enhanced hover effect */}
-                      <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-600 group-hover:to-blue-600 dark:group-hover:from-purple-400 dark:group-hover:to-blue-400 transition-all duration-300 line-clamp-2">
+                      <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-600 group-hover:to-blue-600 dark:group-hover:from-purple-400 dark:group-hover:to-blue-400 transition-all duration-300 line-clamp-2 min-h-[3.5rem]">
                         {blog.title}
                       </h3>
                       
                       {/* Description */}
-                      <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-3 leading-relaxed">
+                      <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-3 leading-relaxed flex-grow min-h-[4.5rem]">
                         {blog.description}
                       </p>
                       
@@ -999,7 +999,7 @@ export default function StudworkPage() {
                       </div>
                       
                       {/* Call to action with animation */}
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-center justify-between mt-auto">
                         <motion.div 
                           className="flex items-center text-sm font-semibold text-purple-600 dark:text-purple-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300"
                           initial={{ x: 0 }}
@@ -1034,7 +1034,7 @@ export default function StudworkPage() {
                 href={blog.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="relative bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-200 dark:border-gray-700 cursor-pointer block group overflow-hidden"
+                className="relative bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-200 dark:border-gray-700 cursor-pointer block group overflow-hidden h-full flex flex-col"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
@@ -1050,7 +1050,7 @@ export default function StudworkPage() {
                 {/* Animated corner accent */}
                 <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-purple-500 to-blue-500 opacity-0 group-hover:opacity-20 blur-2xl transition-all duration-500 transform group-hover:scale-150"></div>
                 
-                <div className="relative z-10">
+                <div className="relative z-10 flex flex-col h-full">
                   {/* Category badge with icon */}
                   <div className="flex items-center gap-2 mb-3">
                     <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold ${blog.categoryColor} bg-opacity-10 backdrop-blur-sm border border-current border-opacity-20`}>
@@ -1062,12 +1062,12 @@ export default function StudworkPage() {
                   </div>
                   
                   {/* Title with enhanced hover effect */}
-                  <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-600 group-hover:to-blue-600 dark:group-hover:from-purple-400 dark:group-hover:to-blue-400 transition-all duration-300 line-clamp-2">
+                  <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-600 group-hover:to-blue-600 dark:group-hover:from-purple-400 dark:group-hover:to-blue-400 transition-all duration-300 line-clamp-2 min-h-[3.5rem]">
                     {blog.title}
                   </h3>
                   
                   {/* Description */}
-                  <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-3 leading-relaxed">
+                  <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-3 leading-relaxed flex-grow min-h-[4.5rem]">
                     {blog.description}
                   </p>
                   
@@ -1091,7 +1091,7 @@ export default function StudworkPage() {
                   </div>
                   
                   {/* Call to action with animation */}
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center justify-between mt-auto">
                     <motion.div 
                       className="flex items-center text-sm font-semibold text-purple-600 dark:text-purple-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300"
                       initial={{ x: 0 }}

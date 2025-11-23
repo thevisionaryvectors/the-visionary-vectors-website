@@ -5,6 +5,7 @@ import { useEffect, useState, use } from 'react';
 import { getBlogBySlug, type InternalBlog } from '@/lib/internalBlogs';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import MarkdownContent from '@/components/common/MarkdownContent';
 
 interface Section {
   id: string;
@@ -201,25 +202,7 @@ export default function ArticlePage({ params }: { params: Promise<{ slug: string
                   )}
 
                   {/* Text content */}
-                  <div className="space-y-4 text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-line [&>*:has(+*)]:text-center">
-                    {section.content.split('\n').map((line, idx) => {
-                      const trimmedLine = line.trim();
-                      // Check if line contains mathematical formula patterns
-                      const isFormula = /^[A-Za-z0-9₀-₉\s\+\-\*\/\=\(\)×]+\s*=\s*[0-9A-Za-z₀-₉\s\+\-\*\/\(\)×]+\.?$/.test(trimmedLine) ||
-                                       /^w[0-9₀-₉]+[xyz]/.test(trimmedLine) ||
-                                       /^(weight_|bias_)/.test(trimmedLine) ||
-                                       /[+=]\s*[0-9]/.test(trimmedLine) ||
-                                       /^[A-Z][xyz]\+/.test(trimmedLine);
-                      
-                      return isFormula ? (
-                        <div key={idx} className="text-center font-mono text-lg my-4 font-semibold text-blue-600 dark:text-blue-400">
-                          {line}
-                        </div>
-                      ) : (
-                        <span key={idx}>{line}{'\n'}</span>
-                      );
-                    })}
-                  </div>
+                  <MarkdownContent content={section.content} />
                 </section>
               ))}
 

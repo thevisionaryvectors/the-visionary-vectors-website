@@ -29,3 +29,16 @@ body {
 .timeline-scroll::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera */
 }
+
+/* KaTeX formula styling - make formulas blue */
+.katex,
+.katex-display,
+.katex-html {
+  color: #2563eb !important; /* blue-600 */
+}
+
+.dark .katex,
+.dark .katex-display,
+.dark .katex-html {
+  color: #60a5fa !important; /* blue-400 */
+}
