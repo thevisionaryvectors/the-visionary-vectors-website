@@ -130,7 +130,7 @@ Go through the dataset multiple times (called epochs) until:
   },
   {
     id: 'anns-real-problems',
-    slug: 'how-anns-solve-real-problems',
+    slug: 'forward-propagation-explained-the-first-step-to-training-neural-networks',
     title: 'Forward Propagation Explained: The First Step to Training Neural Networks',
     category: 'Deep Learning',
     categoryColor: 'text-orange-600',
