@@ -3,47 +3,24 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const HomePage = () => {
-  const [selectedPaper, setSelectedPaper] = useState<number | null>(null);
+  const [selectedDigest, setSelectedDigest] = useState<number | null>(null);
 
-  const latestPapers = [
+  const monthlyDigests = [
     {
       id: 1,
-      title: "Emergent Coordination in Multi-Agent Language Models",
-      authors: "Christoph Riedl",
-      category: "Large Language Models",
-      publishDate: "Oct. 5, 2025",
-      venue: "arXiv",
-      description: "This paper studies how groups of AI models (like ChatGPT) can work together and sometimes show emergent coordination—behaving like a team rather than just separate agents.",
-      summary: "This paper studies how groups of AI models (like ChatGPT) can work together and sometimes show emergent coordination—behaving like a team rather than just separate agents. Using a group guessing game, the author found that when models are given roles (personas) and told to think about others’ actions (theory of mind), they cooperate better and act more like a collective. The best performance happens when agents are both aligned on goals and do different tasks. Smaller models show less teamwork. The study shows that prompt design and model ability strongly affect how well AI agents coordinate as a group.",
-      link: "https://arxiv.org/pdf/2510.05174"
-    },
-    {
-      id: 2,
-      title: "A Definition of AGI",
-      authors: "Dan Hendrycks, Dawn Song and More",
-      category: "Artificial Intelligence",
-      publishDate: "Oct 15, 2025",
-      venue: "Center for AI Safety",
-      description: "The paper gives a clear way to define AGI (Artificial General Intelligence) — an AI that can think and learn as well as a smart, educated adult. It breaks intelligence into 10 main skills, like memory, logic, perception, and creativity.",
-      summary: "The paper gives a clear way to define AGI (Artificial General Intelligence) — an AI that can think and learn as well as a smart, educated adult. It breaks intelligence into 10 main skills, like memory, logic, perception, and creativity. Each skill is rated equally to measure how advanced an AI is overall. The authors estimate that models like GPT-4 are only about one-fourth of the way to real AGI, showing progress but still far to go. The goal is to make it easier to measure AI progress in a fair, human-like way, not to claim AGI already exists",
-      link: "https://www.agidefinition.ai/"
-    },
-    {
-      id: 3,
-      title: "Recursive Language Models",
-      authors: "Alex Zhang, Omar Khattab",
-      category: "Large Language Models",
-      publishDate: "Oct. 15, 2025",
-      venue: "Alex L. Zhang",
-      description: "The blog talks about a new kind of AI model called a Recursive Language Model (RLM). It is a way for an AI (like ChatGPT) to call itself again and again to think through big or complex tasks.",
-      summary: "The blog talks about a new kind of AI model called a Recursive Language Model (RLM). It is a way for an AI (like ChatGPT) to call itself again and again to think through big or complex tasks. Normally, language models get worse when the text or context becomes too long — but RLMs fix that. They split huge amounts of text into smaller parts, understand each one, and then combine the answers. The model itself decides how to break things down. This helps it handle millions of words without losing track or quality, working like a smart, self-organizing notebook.",
-      link: "https://alexzhang13.github.io/blog/2025/rlm/"
-    },
+      month: "November 2025",
+      category: "Learning Journey",
+      explored: "Forward propagation and multi-layer perceptrons",
+      learned: "How neural networks transform linear boundaries into complex decision curves",
+      surprised: "The elegant simplicity of chaining perceptrons to solve nonlinear problems",
+      whatsNext: "Diving into backpropagation and understanding how networks actually learn"
+    }
   ];
 
-  const selectedPaperData = selectedPaper ? latestPapers.find(p => p.id === selectedPaper) : null;
+  const selectedDigestData = selectedDigest ? monthlyDigests.find(d => d.id === selectedDigest) : null;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-black dark:via-black dark:to-black text-gray-900 dark:text-white pt-20 pb-0 relative overflow-hidden">
@@ -103,9 +80,11 @@ const HomePage = () => {
             <div className="relative">
               {/* AI-Human Interaction Image */}
               <div className="w-full h-[500px] rounded-3xl shadow-lg overflow-hidden relative">
-                <img 
+                <Image 
                   src="/The Rise of Human Error in the Age of AI.jpeg"
                   alt="AI and Human collaboration - The Rise of Human Error in the Age of AI"
+                  width={800}
+                  height={500}
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-blue-500/20"></div>
@@ -230,7 +209,7 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* --- Scroll hint between creators & research papers --- */}
+      {/* --- Scroll hint between creators & monthly digest --- */}
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -239,14 +218,14 @@ const HomePage = () => {
       >
         <button
           onClick={() => {
-            window.location.hash = 'research-papers';
-            document.getElementById('research-papers')?.scrollIntoView({ behavior: 'smooth' });
+            window.location.hash = 'monthly-digest';
+            document.getElementById('monthly-digest')?.scrollIntoView({ behavior: 'smooth' });
           }}
           className="text-center text-xs md:text-sm text-purple-500 dark:text-purple-500 hover:text-purple-600 dark:hover:text-purple-600 transition-all duration-300"
           style={{
             textShadow: 'rgb(168 85 247 / 0.1) 0px 0px 8px, rgb(168 85 247 / 0.05) 0px 0px 16px'
           }}
-          aria-label="Scroll down to Latest Research Papers"
+          aria-label="Scroll down to Monthly Digest"
         >
           <motion.div
             animate={{ y: [0, 4, 0] }}
@@ -254,75 +233,42 @@ const HomePage = () => {
             className="dark:[text-shadow:_0_0_10px_rgb(168_85_247_/_0.6),_0_0_20px_rgb(168_85_247_/_0.4)]"
           >
             <span className="block tracking-widest uppercase font-semibold">Scroll down to</span>
-            <span className="block font-bold text-base md:text-lg">Latest Research Papers</span>
+            <span className="block font-bold text-base md:text-lg">Monthly Digest</span>
             <span aria-hidden className="block text-xl md:text-2xl leading-none">↓</span>
           </motion.div>
         </button>
       </motion.div>
 
 
-      {/* Upcoming Research Section */}
-      <section id="research-papers" className="relative z-10 py-20 px-6">
+      {/* Monthly Digest Section - Coming Soon */}
+      <section id="monthly-digest" className="relative z-10 py-20 px-6">
         <div className="max-w-7xl mx-auto">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center"
           >
-            <div className="flex items-center justify-center mb-4">
-              <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-medium">
-                🔄 Updated Weekly
-              </span>
+            <div className="bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-900 rounded-3xl border-2 border-gray-200 dark:border-gray-700 p-16 shadow-xl">
+              <div className="w-32 h-32 bg-gradient-to-r from-blue-500 to-purple-500 dark:from-blue-600 dark:to-purple-600 rounded-full mx-auto mb-8 flex items-center justify-center text-6xl shadow-lg">
+                📰
+              </div>
+              
+              <h2 className="text-5xl font-bold mb-6">
+                <span className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 dark:from-blue-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent">
+                  Monthly Digest
+                </span>
+              </h2>
+              
+              <p className="text-xl text-gray-600 dark:text-gray-300 mb-4 max-w-2xl mx-auto">
+                Coming Soon
+              </p>
+              
+              <p className="text-base text-gray-500 dark:text-gray-400 max-w-xl mx-auto leading-relaxed">
+                Short, crisp, and snackable insights from our learning journey. Stay tuned for monthly updates on what we explored, learned, and what surprised us!
+              </p>
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-500 to-purple-500 dark:from-blue-600 dark:to-purple-600 bg-clip-text text-transparent">
-              Latest Research Papers
-            </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-              Stay updated with the newest research papers in AI. Our curated selection of cutting-edge papers is updated weekly to keep you informed about the latest breakthroughs.
-            </p>
           </motion.div>
-
-          <div className="grid md:grid-cols-3 gap-8 mb-16">
-            {latestPapers.map((paper, index) => (
-              <motion.div
-                key={paper.id}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ scale: 1.05, y: -5 }}
-                onClick={() => setSelectedPaper(paper.id)}
-                className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-3xl p-6 hover:border-blue-500 dark:hover:border-blue-600 hover:shadow-xl transition-all duration-300 shadow-md cursor-pointer"
-              >
-                <div className="flex items-center justify-between mb-3">
-                  <span className="bg-gradient-to-r from-blue-500 to-purple-500 dark:from-blue-600 dark:to-purple-600 text-white px-3 py-1 rounded-full text-xs font-medium">
-                    {paper.category}
-                  </span>
-                  <span className="text-gray-500 dark:text-gray-400 text-xs">{paper.publishDate}</span>
-                </div>
-                <h3 className="text-lg font-bold mb-2 text-gray-800 dark:text-white line-clamp-2 leading-tight">
-                  {paper.title}
-                </h3>
-                <p className="text-gray-600 dark:text-gray-300 text-sm mb-3 font-medium">
-                  {paper.authors}
-                </p>
-                <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-3">
-                  {paper.description}
-                </p>
-                <div className="flex items-center justify-between">
-                  <span className="text-blue-600 text-sm font-medium">{paper.venue}</span>
-                  <div className="flex items-center text-gray-400 dark:text-gray-500">
-                    <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5z" clipRule="evenodd" />
-                      <path fillRule="evenodd" d="M7.414 15.414a2 2 0 01-2.828-2.828l3-3a2 2 0 012.828 0 1 1 0 001.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5z" clipRule="evenodd" />
-                    </svg>
-                    <span className="text-xs">Read Paper</span>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
         </div>
       </section>
 
@@ -381,81 +327,163 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Research Paper Modal */}
+      {/* Monthly Digest Modal */}
       <AnimatePresence>
-        {selectedPaper && selectedPaperData && (
+        {selectedDigest && selectedDigestData && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => setSelectedPaper(null)}
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+            onClick={() => setSelectedDigest(null)}
+            className="fixed inset-0 bg-black/70 backdrop-blur-md z-50 flex items-center justify-center p-4"
           >
             <motion.div
-              initial={{ scale: 0.9, y: 50 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.9, y: 50 }}
+              initial={{ scale: 0.8, y: 100, opacity: 0 }}
+              animate={{ scale: 1, y: 0, opacity: 1 }}
+              exit={{ scale: 0.8, y: 100, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-white dark:bg-gray-900 rounded-3xl shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto p-8 relative"
+              className="relative bg-gradient-to-br from-white via-gray-50 to-white dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 rounded-3xl shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto border-2 border-gray-200 dark:border-gray-700"
             >
-              {/* Close Button */}
-              <button
-                onClick={() => setSelectedPaper(null)}
-                className="absolute top-6 right-6 p-2 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-              >
-                <svg className="w-6 h-6 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
+              {/* Decorative gradient orb */}
+              <div className="absolute -top-20 -right-20 w-60 h-60 bg-gradient-to-br from-blue-400 to-purple-400 rounded-full blur-3xl opacity-20 pointer-events-none" />
+              <div className="absolute -bottom-20 -left-20 w-60 h-60 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full blur-3xl opacity-20 pointer-events-none" />
 
-              {/* Modal Content */}
-              <div className="pr-8">
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="bg-gradient-to-r from-blue-500 to-purple-500 dark:from-blue-600 dark:to-purple-600 text-white px-4 py-1 rounded-full text-sm font-medium">
-                    {selectedPaperData.category}
-                  </span>
-                  <span className="text-gray-500 dark:text-gray-400 text-sm">{selectedPaperData.publishDate}</span>
-                </div>
+              <div className="relative z-10 p-8">
+                {/* Close Button */}
+                <motion.button
+                  onClick={() => setSelectedDigest(null)}
+                  whileHover={{ scale: 1.1, rotate: 90 }}
+                  whileTap={{ scale: 0.9 }}
+                  className="absolute top-6 right-6 p-2.5 rounded-full bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-700 hover:from-red-100 hover:to-red-200 dark:hover:from-red-900/30 dark:hover:to-red-800/30 transition-all duration-300 shadow-lg border border-gray-300 dark:border-gray-600"
+                >
+                  <svg className="w-6 h-6 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </motion.button>
 
-                <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-3">
-                  {selectedPaperData.title}
-                </h2>
+                {/* Modal Header */}
+                <motion.div
+                  initial={{ y: -20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.1 }}
+                  className="pr-12"
+                >
+                  <div className="flex items-center gap-3 mb-6">
+                    <motion.span 
+                      className="bg-gradient-to-r from-blue-500 to-purple-500 dark:from-blue-600 dark:to-purple-600 text-white px-5 py-2 rounded-full text-sm font-bold shadow-lg"
+                      animate={{ boxShadow: ["0 0 20px rgba(99, 102, 241, 0.3)", "0 0 30px rgba(168, 85, 247, 0.4)", "0 0 20px rgba(99, 102, 241, 0.3)"] }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                    >
+                      {selectedDigestData.category}
+                    </motion.span>
+                    <span className="text-gray-500 dark:text-gray-400 text-sm font-semibold flex items-center gap-1.5">
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
+                      </svg>
+                      {selectedDigestData.month}
+                    </span>
+                  </div>
 
-                <p className="text-lg text-gray-700 dark:text-gray-300 mb-2">
-                  {selectedPaperData.authors}
-                </p>
-
-                <p className="text-sm text-blue-600 dark:text-blue-400 font-medium mb-6">
-                  {selectedPaperData.venue}
-                </p>
-
-                <div className="border-t border-gray-200 dark:border-gray-700 pt-6 mb-6">
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Summary</h3>
-                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                    {selectedPaperData.summary}
+                  <h2 className="text-4xl font-bold mb-4">
+                    <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-blue-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent">
+                      Monthly Learning Digest
+                    </span>
+                  </h2>
+                  <p className="text-gray-600 dark:text-gray-300 text-sm">
+                    A snapshot of our AI/ML learning adventures this month 🚀
                   </p>
+                </motion.div>
+
+                {/* Modal Content with enhanced styling */}
+                <div className="space-y-6 mt-8">
+                  <motion.div 
+                    className="relative group"
+                    initial={{ x: -50, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ delay: 0.2 }}
+                  >
+                    <div className="absolute -left-1 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-400 to-blue-600 rounded-full" />
+                    <div className="border-l-4 border-blue-500 pl-6 py-3 bg-blue-50/50 dark:bg-blue-900/10 rounded-r-2xl group-hover:bg-blue-100/50 dark:group-hover:bg-blue-900/20 transition-colors">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="text-2xl">🔍</span>
+                        <h3 className="text-sm font-bold text-blue-700 dark:text-blue-300 uppercase tracking-wider">What did we explore?</h3>
+                      </div>
+                      <p className="text-lg text-gray-900 dark:text-white leading-relaxed">{selectedDigestData.explored}</p>
+                    </div>
+                  </motion.div>
+
+                  <motion.div 
+                    className="relative group"
+                    initial={{ x: -50, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ delay: 0.3 }}
+                  >
+                    <div className="absolute -left-1 top-0 bottom-0 w-1 bg-gradient-to-b from-purple-400 to-purple-600 rounded-full" />
+                    <div className="border-l-4 border-purple-500 pl-6 py-3 bg-purple-50/50 dark:bg-purple-900/10 rounded-r-2xl group-hover:bg-purple-100/50 dark:group-hover:bg-purple-900/20 transition-colors">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="text-2xl">📚</span>
+                        <h3 className="text-sm font-bold text-purple-700 dark:text-purple-300 uppercase tracking-wider">What did we learn?</h3>
+                      </div>
+                      <p className="text-lg text-gray-900 dark:text-white leading-relaxed">{selectedDigestData.learned}</p>
+                    </div>
+                  </motion.div>
+
+                  <motion.div 
+                    className="relative group"
+                    initial={{ x: -50, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ delay: 0.4 }}
+                  >
+                    <div className="absolute -left-1 top-0 bottom-0 w-1 bg-gradient-to-b from-pink-400 to-pink-600 rounded-full" />
+                    <div className="border-l-4 border-pink-500 pl-6 py-3 bg-pink-50/50 dark:bg-pink-900/10 rounded-r-2xl group-hover:bg-pink-100/50 dark:group-hover:bg-pink-900/20 transition-colors">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="text-2xl">💡</span>
+                        <h3 className="text-sm font-bold text-pink-700 dark:text-pink-300 uppercase tracking-wider">What surprised us?</h3>
+                      </div>
+                      <p className="text-lg text-gray-900 dark:text-white leading-relaxed">{selectedDigestData.surprised}</p>
+                    </div>
+                  </motion.div>
+
+                  <motion.div 
+                    className="relative group"
+                    initial={{ x: -50, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ delay: 0.5 }}
+                  >
+                    <div className="absolute -left-1 top-0 bottom-0 w-1 bg-gradient-to-b from-indigo-400 to-indigo-600 rounded-full" />
+                    <div className="border-l-4 border-indigo-500 pl-6 py-3 bg-indigo-50/50 dark:bg-indigo-900/10 rounded-r-2xl group-hover:bg-indigo-100/50 dark:group-hover:bg-indigo-900/20 transition-colors">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="text-2xl">🎯</span>
+                        <h3 className="text-sm font-bold text-indigo-700 dark:text-indigo-300 uppercase tracking-wider">What&apos;s next?</h3>
+                      </div>
+                      <p className="text-lg text-gray-900 dark:text-white leading-relaxed">{selectedDigestData.whatsNext}</p>
+                    </div>
+                  </motion.div>
                 </div>
 
-                <div className="flex gap-4">
-                  <motion.a
-                    href={selectedPaperData.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="flex-1 bg-gradient-to-r from-blue-500 to-purple-500 dark:from-blue-600 dark:to-purple-600 text-white px-6 py-3 rounded-full font-semibold text-center hover:shadow-lg transition-all duration-300"
-                  >
-                    Read Full Paper →
-                  </motion.a>
+                {/* Enhanced CTA Button */}
+                <motion.div 
+                  className="mt-10"
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.6 }}
+                >
                   <motion.button
-                    onClick={() => setSelectedPaper(null)}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="px-6 py-3 rounded-full font-semibold border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-300"
+                    onClick={() => setSelectedDigest(null)}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="relative w-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 dark:from-blue-600 dark:via-purple-600 dark:to-pink-600 text-white px-8 py-4 rounded-full font-bold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden group"
                   >
-                    Close
+                    <span className="relative z-10">Got it! 👍</span>
+                    <motion.div
+                      className="absolute inset-0 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500"
+                      initial={{ x: "100%" }}
+                      whileHover={{ x: "0%" }}
+                      transition={{ duration: 0.3 }}
+                    />
                   </motion.button>
-                </div>
+                </motion.div>
               </div>
             </motion.div>
           </motion.div>

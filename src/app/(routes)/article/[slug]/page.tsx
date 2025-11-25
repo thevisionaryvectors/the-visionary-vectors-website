@@ -2,15 +2,11 @@
 
 import { motion } from 'framer-motion';
 import { useEffect, useState, use } from 'react';
-import { getBlogBySlug, type InternalBlog } from '@/lib/internalBlogs';
+import { getBlogBySlug } from '@/lib/internalBlogs';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import MarkdownContent from '@/components/common/MarkdownContent';
-
-interface Section {
-  id: string;
-  title: string;
-}
 
 export default function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   const [activeSection, setActiveSection] = useState<string>('');
@@ -128,7 +124,7 @@ export default function ArticlePage({ params }: { params: Promise<{ slug: string
                 transition={{ duration: 0.5, delay: 0.2 }}
                 className="mb-12 rounded-xl overflow-hidden"
               >
-                <img src={blog.featuredImage} alt={blog.title} className="w-full h-auto" />
+                <Image src={blog.featuredImage} alt={blog.title} width={1200} height={630} className="w-full h-auto" />
                 {blog.featuredImageCaption && (
                   <p className="text-sm text-gray-500 dark:text-gray-400 text-center mt-2 italic">
                     {blog.featuredImageCaption}
@@ -161,7 +157,7 @@ export default function ArticlePage({ params }: { params: Promise<{ slug: string
 
             {/* Article Content */}
             <article className="prose prose-lg dark:prose-invert max-w-none">
-              {blog.sections.map((section, index) => (
+              {blog.sections.map((section) => (
                 <section key={section.id} id={section.id} className="mb-16 scroll-mt-24">
                   <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">
                     {section.title}
@@ -172,7 +168,7 @@ export default function ArticlePage({ params }: { params: Promise<{ slug: string
                     <div className="my-8 rounded-lg overflow-hidden">
                       {section.mediaType === 'image' || section.mediaType === 'gif' ? (
                         <div>
-                          <img src={section.mediaUrl} alt={section.mediaCaption || section.title} className="w-full h-auto" />
+                          <Image src={section.mediaUrl} alt={section.mediaCaption || section.title} width={1200} height={630} className="w-full h-auto" />
                           {section.mediaCaption && (
                             <p className="text-sm text-gray-500 dark:text-gray-400 text-center mt-2 italic">
                               {section.mediaCaption}
