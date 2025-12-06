@@ -382,3 +382,4 @@ export function getAllInternalBlogs(): InternalBlog[] {
 export function getRecentInternalBlogs(limit: number = 3): InternalBlog[] {
   return getAllInternalBlogs().slice(0, limit);
 }
+
