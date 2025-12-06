@@ -240,7 +240,7 @@ These design choices affect how much the model can learn during forward propagat
     description: 'A mathematical walk-through of backpropagation and loss functions used to train neural networks.',
     readTime: '10 min read',
     date: '5th Dec 2025',
-    publishDate: '2025-12-05',
+    publishDate: '2025-12-13',
     author: 'Ayushi Sahu',
     sections: [
       {
@@ -259,7 +259,7 @@ These design choices affect how much the model can learn during forward propagat
     description: 'An intuitive guide to gradient descent and its variants for optimizing neural networks.',
     readTime: '8 min read',
     date: '8th Dec 2025',
-    publishDate: '2025-12-08',
+    publishDate: '2025-12-13',
     author: 'Ayushi Sahu',
     sections: [
       {
@@ -278,7 +278,7 @@ These design choices affect how much the model can learn during forward propagat
     description: 'Explore the evolution of activation functions from classical sigmoid to modern variants like ReLU, Leaky ReLU, and GELU.',
     readTime: '8 min read',
     date: '19th Dec 2025',
-    publishDate: '2025-12-19',
+    publishDate: '2025-12-20',
     author: 'Ayushi Sahu',
     sections: [
       {
@@ -297,7 +297,7 @@ These design choices affect how much the model can learn during forward propagat
     description: 'Practical strategies for scaling models and preventing overfitting using regularization, dropout, and early stopping.',
     readTime: '10 min read',
     date: '14th Dec 2025',
-    publishDate: '2025-12-14',
+    publishDate: '2026-01-10',
     author: 'Ayushi Sahu',
     sections: [
       {
@@ -316,7 +316,7 @@ These design choices affect how much the model can learn during forward propagat
     description: 'Deep dive into optimization algorithms including Momentum, RMSProp, Adam, and their variants.',
     readTime: '12 min read',
     date: '7th Jan 2026',
-    publishDate: '2026-01-07',
+    publishDate: '2026-01-17',
     author: 'Ayushi Sahu',
     sections: [
       {
@@ -335,7 +335,7 @@ These design choices affect how much the model can learn during forward propagat
     description: 'Learn the fundamentals of Convolutional Neural Networks including convolution, pooling, and classic architectures.',
     readTime: '11 min read',
     date: '14th Jan 2026',
-    publishDate: '2026-01-14',
+    publishDate: '2026-01-24',
     author: 'Ayushi Sahu',
     sections: [
       {
@@ -354,7 +354,7 @@ These design choices affect how much the model can learn during forward propagat
     description: 'Explore the inner workings of CNNs including backpropagation, transfer learning, and feature visualization.',
     readTime: '10 min read',
     date: '11th Jan 2026',
-    publishDate: '2026-01-11',
+    publishDate: '2026-01-31',
     author: 'Ayushi Sahu',
     sections: [
       {
