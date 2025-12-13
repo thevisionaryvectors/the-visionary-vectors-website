@@ -520,8 +520,8 @@ export default function StudworkPage() {
             >
               <motion.button
                 onClick={() => {
-                  window.location.hash = 'timeline';
-                  document.getElementById('timeline')?.scrollIntoView({ behavior: 'smooth' });
+                  window.location.hash = 'explore';
+                  document.getElementById('explore')?.scrollIntoView({ behavior: 'smooth' });
                 }}
                 className="group relative inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-purple-500/20 to-blue-500/20 hover:from-purple-500/30 hover:to-blue-500/30 border-2 border-white/40 hover:border-white/60 rounded-full text-base font-semibold transition-all duration-500 overflow-hidden backdrop-blur-sm"
                 whileHover={{ scale: 1.05, y: -2 }}
@@ -558,7 +558,7 @@ export default function StudworkPage() {
                 {/* Content */}
                 <div className="relative z-10 flex items-center gap-3">
                   <span className="bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent font-bold">
-                    View What&apos;s Upcoming
+                    Explore My Work
                   </span>
                   
                   {/* Animated arrow */}
@@ -615,7 +615,7 @@ export default function StudworkPage() {
       </section>
 
       {/* Services Section - Moved to top */}
-      <section className="py-20 px-6 bg-white dark:bg-black">
+      <section id="explore" className="py-20 px-6 bg-white dark:bg-black">
         <div className="container mx-auto">
           <motion.div 
             className="text-center mb-16"
