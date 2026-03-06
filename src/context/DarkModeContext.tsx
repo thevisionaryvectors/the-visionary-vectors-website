@@ -15,6 +15,8 @@ export function DarkModeProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     setMounted(true);
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
     // Check if there's a stored preference
     const storedDarkMode = localStorage.getItem('darkMode');
     if (storedDarkMode) {
@@ -22,11 +24,21 @@ export function DarkModeProvider({ children }: { children: React.ReactNode }) {
       setIsDarkMode(darkMode);
       document.documentElement.classList.toggle('dark', darkMode);
     } else {
-      // Check system preference
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      // No manual override — follow system preference
+      const prefersDark = mediaQuery.matches;
       setIsDarkMode(prefersDark);
       document.documentElement.classList.toggle('dark', prefersDark);
     }
+
+    // Listen for system preference changes (only when no manual override)
+    const handleSystemChange = (e: MediaQueryListEvent) => {
+      if (!localStorage.getItem('darkMode')) {
+        setIsDarkMode(e.matches);
+        document.documentElement.classList.toggle('dark', e.matches);
+      }
+    };
+    mediaQuery.addEventListener('change', handleSystemChange);
+    return () => mediaQuery.removeEventListener('change', handleSystemChange);
   }, []);
 
   useEffect(() => {

@@ -1,5 +1,5 @@
-import AyushiPageContent from '@/components/common/AyushiPageContent';
+import { redirect } from 'next/navigation';
 
 export default function AyushiPage() {
-  return <AyushiPageContent />;
+  redirect('/#about');
 }
