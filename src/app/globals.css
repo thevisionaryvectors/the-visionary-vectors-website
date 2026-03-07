@@ -127,6 +127,7 @@ body {
   color: var(--nl-text);
   -webkit-font-smoothing: antialiased;
   transition: background-color 0.2s, color 0.2s;
+  overflow-x: hidden;
 }
 
 /* Deep space purple-navy gradient background in dark mode */
@@ -685,12 +686,18 @@ body {
 }
 
 @media (max-width: 768px) {
-  .nl-bento { grid-template-columns: 1fr; }
+  .nl-bento {
+    grid-template-columns: 1fr !important;
+  }
   .nl-bento-wide,
   .nl-bento-tall,
   .nl-bento-full,
   .nl-bento-hero,
-  .nl-bento-duo { grid-column: span 1; grid-row: span 1; }
+  .nl-bento-duo,
+  .nl-bento-card {
+    grid-column: span 1 !important;
+    grid-row: span 1 !important;
+  }
   .nl-top-row { grid-template-columns: 1fr; }
   .nl-two-col { grid-template-columns: 1fr; }
   .nl-must-read-grid { grid-template-columns: 1fr; }
