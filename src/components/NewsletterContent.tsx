@@ -112,7 +112,7 @@ export default function NewsletterContent({
         {/* Bento Grid - mobile-first single column, grid on md+ */}
         <div className="flex flex-col gap-4 md:grid md:grid-cols-3 md:gap-4 md:mt-1">
           {/* 0️⃣ Editor's Note — full width */}
-          <div className="nl-bento-card border-dashed md:col-span-3">
+          <div className="nl-bento-card notebook-dotted-border md:col-span-3">
             <span className="nl-bento-label text-indigo-400">From my notebook</span>
             <p className="nl-bento-desc text-[0.92rem] leading-[1.75] max-w-none">
               This week highlighted an interesting shift in AI development: reasoning transparency and infrastructure efficiency.

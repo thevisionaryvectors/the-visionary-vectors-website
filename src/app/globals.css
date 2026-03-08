@@ -1,3 +1,12 @@
+/* Force dotted border for the 'From my notebook' tile only */
+.notebook-dotted-border {
+  border-style: dashed !important;
+  border-width: 2px !important;
+}
+/* Dotted border for the first bento card (From my notebook) */
+.nl-bento-card:first-child {
+  border-style: dotted;
+}
 @import "tailwindcss";
 
 /* Tailwind v4: use .dark class for dark: utilities instead of media query */
