@@ -53,11 +53,13 @@ const HomePage = ({ internalBlogs }: HomePageProps) => {
           <div className="lg:col-span-3 flex flex-col justify-between gap-5 order-2 lg:order-1">
 
             {/* Newsletter Tile */}
-            <motion.div
+            <motion.a
+              href="/newsletter"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0 }}
-              className="block bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-5 transition-all duration-300 cursor-default"
+              whileHover={{ y: -4, scale: 1.02 }}
+              className="block bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-5 transition-all duration-300 cursor-pointer hover:shadow-lg group"
             >
               <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 text-white flex items-center justify-center mb-3">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -66,10 +68,10 @@ const HomePage = ({ internalBlogs }: HomePageProps) => {
               </div>
               <h3 className="font-bold text-gray-900 dark:text-white text-sm mb-1">Weekly Newsletter</h3>
               <p className="text-gray-500 dark:text-gray-400 text-xs leading-relaxed mb-2">Subscribe to get weekly AI/ML insights, project updates, and learning highlights.</p>
-              <span className="text-xs tracking-widest text-gray-400 dark:text-gray-500 uppercase font-medium">
-                Releasing Soon
+              <span className="text-sm font-semibold bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent group-hover:from-purple-500 group-hover:to-blue-500 transition-all">
+                Read Now →
               </span>
-            </motion.div>
+            </motion.a>
 
             {/* GitHub Tile */}
             <motion.a
