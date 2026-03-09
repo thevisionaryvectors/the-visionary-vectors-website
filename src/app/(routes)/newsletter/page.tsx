@@ -37,6 +37,8 @@ interface AiTool {
   name: string;
   description: string;
   badge: string;
+  try_link: string | null;
+  read_link: string | null;
 }
 
 interface AiSystem {
