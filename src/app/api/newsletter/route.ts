@@ -5,7 +5,6 @@ export const revalidate = 3600;
 
 export async function GET() {
   try {
-    // Get the latest newsletter
     const newsletters = await sql`
       SELECT * FROM newsletters ORDER BY issue_date DESC LIMIT 1
     `;
@@ -17,24 +16,21 @@ export async function GET() {
     const newsletter = newsletters[0];
     const newsletterId = newsletter.id;
 
-    // Fetch all related data in parallel
-    const [bigStories, engineeringBreakdowns, researchPapers, aiTools, aiSystemsList, interestingLinksList] = await Promise.all([
+    const [bigStories, researchPapers, aiTools, aiSystemsList, interestingLinksList] = await Promise.all([
       sql`SELECT * FROM big_story WHERE newsletter_id = ${newsletterId} LIMIT 1`,
-      sql`SELECT * FROM github_repos WHERE newsletter_id = ${newsletterId} LIMIT 1`,
-      sql`SELECT * FROM projects WHERE newsletter_id = ${newsletterId} LIMIT 1`,
+      sql`SELECT * FROM research_papers WHERE newsletter_id = ${newsletterId} LIMIT 1`,
       sql`SELECT * FROM tools WHERE newsletter_id = ${newsletterId} LIMIT 1`,
-      sql`SELECT * FROM ai_news WHERE newsletter_id = ${newsletterId} ORDER BY sort_order ASC LIMIT 1`,
-      sql`SELECT * FROM must_read WHERE newsletter_id = ${newsletterId} ORDER BY sort_order ASC LIMIT 1`,
+      sql`SELECT * FROM model_releases WHERE newsletter_id = ${newsletterId} ORDER BY sort_order ASC LIMIT 1`,
+      sql`SELECT * FROM interesting_links WHERE newsletter_id = ${newsletterId} ORDER BY sort_order ASC`,
     ]);
 
     return NextResponse.json({
       newsletter,
       bigStory: bigStories[0] ?? null,
-      engineeringBreakdown: engineeringBreakdowns[0] ?? null,
       researchPaper: researchPapers[0] ?? null,
       aiTool: aiTools[0] ?? null,
       aiSystem: aiSystemsList[0] ?? null,
-      interestingLink: interestingLinksList[0] ?? null,
+      interestingLinks: interestingLinksList,
     });
   } catch (error) {
     console.error('Failed to fetch newsletter:', error);

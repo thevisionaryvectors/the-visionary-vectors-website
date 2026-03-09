@@ -21,13 +21,6 @@ interface BigStory {
   image_url: string | null;
 }
 
-interface EngineeringBreakdown {
-  id: number;
-  name: string;
-  description: string;
-  link: string;
-  source: string | null;
-}
 
 interface ResearchPaper {
   id: number;
@@ -42,6 +35,8 @@ interface AiTool {
   name: string;
   description: string;
   badge: string;
+  try_link: string | null;
+  read_link: string | null;
 }
 
 interface AiSystem {
@@ -66,21 +61,19 @@ interface InterestingLink {
 interface Props {
   newsletter: Newsletter;
   bigStory: BigStory | null;
-  engineeringBreakdown: EngineeringBreakdown | null;
   researchPaper: ResearchPaper | null;
   aiTool: AiTool | null;
   aiSystem: AiSystem | null;
-  interestingLink: InterestingLink | null;
+  interestingLinks: InterestingLink[];
 }
 
 export default function NewsletterContent({
   newsletter,
   bigStory,
-  engineeringBreakdown,
   researchPaper,
   aiTool,
   aiSystem,
-  interestingLink,
+  interestingLinks,
 }: Props) {
   const formattedDate = new Date(newsletter.issue_date).toLocaleDateString('en-US', {
     year: 'numeric',
@@ -105,8 +98,8 @@ export default function NewsletterContent({
               <div className="nl-header-date">{formattedDate}</div>
             </div>
           </div>
-          <p className="nl-header-subtitle">{newsletter.subtitle}</p>
-          <hr className="nl-divider" />
+          {newsletter.subtitle && <p className="nl-header-subtitle">{newsletter.subtitle}</p>}
+
         </header>
 
         {/* Bento Grid - mobile-first single column, grid on md+ */}
@@ -115,10 +108,10 @@ export default function NewsletterContent({
           <div className="nl-bento-card notebook-dotted-border md:col-span-3">
             <span className="nl-bento-label text-indigo-400">From my notebook</span>
             <p className="nl-bento-desc text-[0.92rem] leading-[1.75] max-w-none">
-              This week highlighted an interesting shift in AI development: reasoning transparency and infrastructure efficiency.
+              This week in AI felt like a coordinated sprint toward practicality. Across the board, companies are trying to make their models genuinely useful for the daily grind. We saw OpenAI pushing for more transparent reasoning with GPT-5.4, Google hyper-optimizing under the hood with Gemini 3.1 Flash-Lite, and Anthropic teaching its agents modular skills.
             </p>
             <p className="nl-bento-desc text-[0.92rem] leading-[1.75] max-w-none">
-              OpenAI&apos;s Thinking System Card suggests a future where developers can inspect how reasoning models structure multi-step logic rather than treating them as black boxes. At the same time, infrastructure releases like Gemini Flash-Lite show that the next competitive advantage may be latency and cost efficiency rather than just larger models.
+              Meanwhile, the science side is still debating a hilarious, existential question: are these models actually controlling their logic, or are they just faking it really, really well? Add in new coding benchmarks and Amazon rolling out AI dashboards for sellers, and the industry&apos;s new direction is obvious. The era of the flashy tech demo is over; the era of surviving a real-life Monday morning workflow is here.
             </p>
             <p className="mt-auto self-end text-[0.82rem] text-indigo-400 italic">— Ayushi</p>
           </div>
@@ -138,7 +131,16 @@ export default function NewsletterContent({
                   {bigStory.badge && <span className="nl-source-tag">{bigStory.badge}</span>}
                 </div>
                 <p className="nl-bento-desc">{bigStory.description}</p>
-                {bigStory.body && <p className="nl-bento-body">{bigStory.body}</p>}
+                {bigStory.body &&
+                  (bigStory.body.includes('•') ? (
+                    <ul className="nl-bento-body list-disc pl-5 !border-l-0">
+                      {bigStory.body.split('•').filter(Boolean).map((point, idx) => (
+                        <li key={idx}>{point.trim()}</li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p className="nl-bento-body">{bigStory.body}</p>
+                  ))}
                 {bigStory.link && (
                   <a href={bigStory.link} target="_blank" rel="noopener noreferrer" className="mt-auto self-end text-[0.75rem] font-bold text-sky-400 tracking-wider no-underline transition-colors duration-200 hover:text-sky-300">
                     Read More ↗
@@ -160,8 +162,8 @@ export default function NewsletterContent({
 
           {/* 2️⃣ AI Systems & Infrastructure — 1 col */}
           {aiSystem && (
-            <div className="nl-bento-card">
-              <span className="nl-bento-label text-cyan-400">AI Systems &amp; Infrastructure</span>
+            <div className="nl-bento-card md:col-span-2">
+              <span className="nl-bento-label text-cyan-400">Model Releases</span>
               <div className="flex items-center gap-2 flex-wrap">
                 <h3 className="nl-bento-title m-0">
                   {aiSystem.link ? (
@@ -170,7 +172,15 @@ export default function NewsletterContent({
                 </h3>
                 {aiSystem.badge && <span className="nl-source-tag">{aiSystem.badge}</span>}
               </div>
-              <p className="nl-bento-desc">{aiSystem.description}</p>
+              {aiSystem.description.includes('•') ? (
+                <ul className="nl-bento-body list-disc pl-5 !border-l-0">
+                  {aiSystem.description.split('•').filter(Boolean).map((point, idx) => (
+                    <li key={idx}>{point.trim()}</li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="nl-bento-desc">{aiSystem.description}</p>
+              )}
               {aiSystem.link && (
                 <a href={aiSystem.link} target="_blank" rel="noopener noreferrer" className="mt-auto self-end text-[0.75rem] font-bold text-sky-400 tracking-wider no-underline transition-colors duration-200 hover:text-sky-300">
                   Read More ↗
@@ -179,20 +189,6 @@ export default function NewsletterContent({
             </div>
           )}
 
-          {/* 3️⃣ Engineering Breakdown */}
-          {engineeringBreakdown && (
-            <div className="nl-bento-card">
-              <span className="nl-bento-label">Engineering Breakdown</span>
-              <div className="flex items-center gap-2 flex-wrap">
-                <h3 className="nl-bento-title m-0">{engineeringBreakdown.name}</h3>
-                {engineeringBreakdown.source && <span className="nl-source-tag">{engineeringBreakdown.source}</span>}
-              </div>
-              <p className="nl-bento-desc">{engineeringBreakdown.description}</p>
-              <a href={engineeringBreakdown.link} target="_blank" rel="noopener noreferrer" className="mt-auto self-end text-[0.75rem] font-bold text-sky-400 tracking-wider no-underline transition-colors duration-200 hover:text-sky-300">
-                Read More ↗
-              </a>
-            </div>
-          )}
 
           {/* 4️⃣ Tools for AI Engineers */}
           {aiTool && (
@@ -205,6 +201,20 @@ export default function NewsletterContent({
               <p className="nl-bento-desc">
                 {aiTool.description}
               </p>
+              {(aiTool.try_link || aiTool.read_link) && (
+                <div className="mt-auto flex gap-4 self-end">
+                  {aiTool.try_link && (
+                    <a href={aiTool.try_link} target="_blank" rel="noopener noreferrer" className="text-[0.75rem] font-bold text-sky-400 tracking-wider no-underline transition-colors duration-200 hover:text-sky-300">
+                      Try Now ↗
+                    </a>
+                  )}
+                  {aiTool.read_link && (
+                    <a href={aiTool.read_link} target="_blank" rel="noopener noreferrer" className="text-[0.75rem] font-bold text-sky-400 tracking-wider no-underline transition-colors duration-200 hover:text-sky-300">
+                      Read Now ↗
+                    </a>
+                  )}
+                </div>
+              )}
             </div>
           )}
 
@@ -223,23 +233,26 @@ export default function NewsletterContent({
                 </a>
               </div>
             )}
-            {interestingLink && (
+            {interestingLinks.length > 0 && (
               <div className="nl-bento-card flex-1">
                 <span className="nl-bento-label">Interesting Links</span>
-                <div className="flex items-center gap-2 flex-wrap">
-                  <h3 className="nl-bento-title m-0">
-                    {interestingLink.link ? (
-                      <a href={interestingLink.link} target="_blank" rel="noopener noreferrer">{interestingLink.title}</a>
-                    ) : interestingLink.title}
-                  </h3>
-                  {interestingLink.badge && <span className="nl-source-tag">{interestingLink.badge}</span>}
+                <div className="flex flex-col gap-3">
+                  {interestingLinks.map((item) => (
+                    <p key={item.id} className="nl-bento-desc m-0 leading-[1.7]">
+                      <span className="font-semibold text-white">{item.title}</span>
+                      {' — '}
+                      {item.description}
+                      {item.link && (
+                        <>
+                          {' — '}
+                          <a href={item.link} target="_blank" rel="noopener noreferrer" className="text-sky-400 font-bold no-underline hover:text-sky-300 transition-colors duration-200">
+                            Read Now ↗
+                          </a>
+                        </>
+                      )}
+                    </p>
+                  ))}
                 </div>
-                <p className="nl-bento-desc">{interestingLink.description}</p>
-                {interestingLink.link && (
-                  <a href={interestingLink.link} target="_blank" rel="noopener noreferrer" className="mt-auto self-end text-[0.75rem] font-bold text-sky-400 tracking-wider no-underline transition-colors duration-200 hover:text-sky-300">
-                    Read More ↗
-                  </a>
-                )}
               </div>
             )}
           </div>

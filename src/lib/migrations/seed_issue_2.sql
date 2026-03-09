@@ -1,4 +1,4 @@
--- Newsletter Issue #2 — 2026-03-06
+-- Newsletter Issue #2 — 2026-03-09
 -- Run this against your Neon database to add the new issue.
 
 WITH new_newsletter AS (
@@ -6,7 +6,7 @@ WITH new_newsletter AS (
   VALUES (
     'Prompt Notes - Issue #1',
     '',
-    '2026-03-06'
+    '2026-03-09'
   )
   RETURNING id
 ),
@@ -24,57 +24,44 @@ big AS (
   FROM new_newsletter
 ),
 
-eng AS (
-  INSERT INTO github_repos (newsletter_id, name, description, link)
-  SELECT
-    id,
-    'Modular Diffusers',
-    'Hugging Face introduces Modular Diffusers — composable building blocks to customize generative diffusion pipelines. By breaking down monolithic architectures, developers can dynamically swap components like schedulers for enhanced control in image generation tasks. Decomposing diffusion models into modular pipelines allows engineers to seamlessly interchange specific attention mechanisms without rewriting the entire generation stack.',
-    'https://huggingface.co/blog/modular-diffusers'
-  FROM new_newsletter
-),
-
 paper AS (
-  INSERT INTO projects (newsletter_id, name, description, link)
+  INSERT INTO research_papers (newsletter_id, name, description, link)
   SELECT
     id,
-    'Phi-4-reasoning-vision-15B Technical Report',
-    'Details the architecture and training methodology behind Phi-4-reasoning-vision-15B — a new multimodal model focused on advanced visual reasoning. It achieves strong spatial and logical capabilities in a compact 15B parameter footprint, enabling deployment on edge devices or cost-effective cloud instances.',
-    'https://arxiv.org/abs/2603.03975'
+    'CoT Controllability',
+    'Investigates whether AI models can hide or manipulate their chain-of-thought reasoning. Models can control their final answers but consistently fail to control their reasoning traces — even when explicitly told to. Longer, harder tasks amplify this effect, and larger models show only marginal improvement. Since models cannot easily conceal their reasoning, monitoring chain-of-thought may offer a reliable signal for detecting unsafe or deceptive behavior.',
+    'https://openai.com/index/reasoning-models-chain-of-thought-controllability/'
   FROM new_newsletter
 ),
 
 tool AS (
-  INSERT INTO tools (newsletter_id, name, description, badge)
+  INSERT INTO tools (newsletter_id, name, description, badge, try_link, read_link)
   SELECT
     id,
-    'OpenSandbox',
-    'A general-purpose execution platform by Alibaba for safely running AI applications and autonomous agents. Provides multi-language SDKs, unified APIs, and Docker/Kubernetes runtimes — ideal for letting coding agents compile and test generated code without risking host system integrity.',
-    'Alibaba'
+    'Agent Skills',
+    'Anthropic introduces Agent Skills — modular capability packages that extend Claude with domain-specific knowledge. Skills are stored as structured folders and dynamically loaded when a task matches the skill description, letting Claude apply specialized workflows consistently rather than relying solely on general training. Think of them as pluggable playbooks for repeatable, expert-level tasks.',
+    'Anthropic',
+    'https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview',
+    'https://www.ainews.com/p/anthropic-introduces-built-in-evaluation-and-benchmarking-for-claude-agent-skills-to-improve-enterpr'
   FROM new_newsletter
 ),
 
 ai AS (
-  INSERT INTO ai_news (newsletter_id, title, description, badge, badge_class, link, sort_order)
+  INSERT INTO model_releases (newsletter_id, title, description, badge, badge_class, link, sort_order)
   SELECT
     id,
-    'Gemini 3.1 Flash-Lite',
-    'Google DeepMind announces Gemini 3.1 Flash-Lite, an optimized infrastructure deployment designed for massive-scale intelligence operations. Focuses on maximizing inference throughput and minimizing latency — helping AI infrastructure teams significantly reduce inference costs for high-volume, real-time generative AI applications.',
-    'Google DeepMind',
+    'Google launches Gemini 3.1 Flash-Lite',
+    '• Built for High-Volume Workloads — Designed for large-scale developer workloads, delivering efficient performance for applications that require high throughput.• Cost-Efficient Model — $0.25 per 1M input tokens and $1.50 per 1M output tokens, providing strong performance while keeping operational costs low.• Fast and Low-Latency Performance — 2.5× faster Time to First Answer Token and 45% faster output speed, enabling responsive real-time applications.• Flexible Reasoning — Available in AI Studio and Vertex AI with adjustable thinking levels for translation, content moderation, UI generation, and more.',
+    'Google',
     'blue',
-    'https://deepmind.google/news/',
+    'https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-1-flash-lite/',
     1
   FROM new_newsletter
 )
 
-INSERT INTO must_read (newsletter_id, title, description, why, link, badge, badge_class, sort_order)
-SELECT
-  id,
-  'Can Coding Agents Become Engineers? We''re Finding Out.',
-  'Scale AI Research introduces SWE-Atlas, an evaluation suite that tests coding agents not just on their final output, but on how effectively they investigate systems and gather evidence — just like a junior software engineer would.',
-  NULL,
-  'https://scale.com/blog/swe-atlas',
-  'Scale AI',
-  'purple',
-  1
-FROM new_newsletter;
+INSERT INTO interesting_links (newsletter_id, title, description, why, link, badge, badge_class, sort_order)
+SELECT id, 'Google CLI + OpenClaw', 'Google released a new Workspace command-line tool that lets AI agents like OpenClaw access and automate tasks across Gmail, Drive, Docs, and other Workspace apps.', NULL, 'https://arstechnica.com/ai/2026/03/googles-new-command-line-tool-can-plug-openclaw-into-your-workspace-data/', 'Ars Technica', 'blue', 1 FROM new_newsletter
+UNION ALL
+SELECT id, 'SWE-Atlas', 'SWE-Atlas is a new benchmark from Scale AI that evaluates how well AI coding agents understand, test, and refactor real-world codebases.', NULL, 'https://scale.com/blog/swe-atlas', 'Scale AI', 'purple', 2 FROM new_newsletter
+UNION ALL
+SELECT id, 'Amazon AI Canvas Workspace', 'Amazon launched an AI Canvas workspace that turns seller data into interactive dashboards with real-time insights and recommended business actions.', NULL, 'https://www.ainews.com/p/amazon-launches-ai-canvas-workspace-to-turn-seller-data-into-real-time-business-decisions', 'Amazon', 'blue', 3 FROM new_newsletter;

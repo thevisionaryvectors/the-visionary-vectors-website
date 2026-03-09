@@ -24,14 +24,6 @@ interface BigStory {
   image_url: string | null;
 }
 
-interface EngineeringBreakdown {
-  id: number;
-  name: string;
-  description: string;
-  link: string;
-  source: string | null;
-}
-
 interface ResearchPaper {
   id: number;
   name: string;
@@ -79,25 +71,22 @@ export default async function NewsletterPage() {
   const newsletter = newsletters[0];
   const newsletterId = newsletter.id;
 
-  const [bigStories, engineeringBreakdowns, researchPapers, aiTools, aiSystemsList, interestingLinksList] = await Promise.all([
+  const [bigStories, researchPapers, aiTools, aiSystemsList, interestingLinksList] = await Promise.all([
     (await sql`SELECT * FROM big_story WHERE newsletter_id = ${newsletterId} LIMIT 1`) as BigStory[],
-    (await sql`SELECT * FROM github_repos WHERE newsletter_id = ${newsletterId} LIMIT 1`) as EngineeringBreakdown[],
-    (await sql`SELECT * FROM projects WHERE newsletter_id = ${newsletterId} LIMIT 1`) as ResearchPaper[],
+    (await sql`SELECT * FROM research_papers WHERE newsletter_id = ${newsletterId} LIMIT 1`) as ResearchPaper[],
     (await sql`SELECT * FROM tools WHERE newsletter_id = ${newsletterId} LIMIT 1`) as AiTool[],
-    (await sql`SELECT * FROM ai_news WHERE newsletter_id = ${newsletterId} ORDER BY sort_order ASC LIMIT 1`) as AiSystem[],
-    (await sql`SELECT * FROM must_read WHERE newsletter_id = ${newsletterId} ORDER BY sort_order ASC LIMIT 1`) as InterestingLink[],
+    (await sql`SELECT * FROM model_releases WHERE newsletter_id = ${newsletterId} ORDER BY sort_order ASC LIMIT 1`) as AiSystem[],
+    (await sql`SELECT * FROM interesting_links WHERE newsletter_id = ${newsletterId} ORDER BY sort_order ASC`) as InterestingLink[],
   ]);
 
   return (
     <NewsletterContent
       newsletter={newsletter}
       bigStory={bigStories[0] ?? null}
-      engineeringBreakdown={engineeringBreakdowns[0] ?? null}
       researchPaper={researchPapers[0] ?? null}
       aiTool={aiTools[0] ?? null}
       aiSystem={aiSystemsList[0] ?? null}
-      interestingLink={interestingLinksList[0] ?? null}
+      interestingLinks={interestingLinksList}
     />
   );
 }
-
