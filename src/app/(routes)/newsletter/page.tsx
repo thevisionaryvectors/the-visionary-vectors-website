@@ -60,6 +60,14 @@ interface InterestingLink {
   badge_class: string;
 }
 
+interface AgentFrameworkUpdate {
+  id: number;
+  title: string;
+  description: string | null;
+  link: string | null;
+  sort_order: number;
+}
+
 /* ─── Newsletter Page ────────────────────────────────────────── */
 export default async function NewsletterPage() {
   const newsletters = await sql`
@@ -73,22 +81,24 @@ export default async function NewsletterPage() {
   const newsletter = newsletters[0];
   const newsletterId = newsletter.id;
 
-  const [bigStories, researchPapers, aiTools, aiSystemsList, interestingLinksList] = await Promise.all([
-    (await sql`SELECT * FROM big_story WHERE newsletter_id = ${newsletterId} LIMIT 1`) as BigStory[],
-    (await sql`SELECT * FROM research_papers WHERE newsletter_id = ${newsletterId} LIMIT 1`) as ResearchPaper[],
-    (await sql`SELECT * FROM tools WHERE newsletter_id = ${newsletterId} LIMIT 1`) as AiTool[],
-    (await sql`SELECT * FROM model_releases WHERE newsletter_id = ${newsletterId} ORDER BY sort_order ASC LIMIT 1`) as AiSystem[],
+  const [bigStories, researchPapers, aiTools, aiSystems, interestingLinksList, agentFrameworkUpdatesList] = await Promise.all([
+    (await sql`SELECT * FROM big_story WHERE newsletter_id = ${newsletterId}`) as BigStory[],
+    (await sql`SELECT * FROM research_papers WHERE newsletter_id = ${newsletterId} ORDER BY sort_order ASC`) as ResearchPaper[],
+    (await sql`SELECT * FROM tools WHERE newsletter_id = ${newsletterId}`) as AiTool[],
+    (await sql`SELECT * FROM model_releases WHERE newsletter_id = ${newsletterId} ORDER BY sort_order ASC`) as AiSystem[],
     (await sql`SELECT * FROM interesting_links WHERE newsletter_id = ${newsletterId} ORDER BY sort_order ASC`) as InterestingLink[],
+    (await sql`SELECT * FROM agent_framework_updates WHERE newsletter_id = ${newsletterId} ORDER BY sort_order ASC`) as AgentFrameworkUpdate[],
   ]);
 
   return (
     <NewsletterContent
       newsletter={newsletter}
-      bigStory={bigStories[0] ?? null}
-      researchPaper={researchPapers[0] ?? null}
-      aiTool={aiTools[0] ?? null}
-      aiSystem={aiSystemsList[0] ?? null}
+      bigStories={bigStories}
+      researchPapers={researchPapers}
+      aiTools={aiTools}
+      aiSystems={aiSystems}
       interestingLinks={interestingLinksList}
+      agentFrameworkUpdates={agentFrameworkUpdatesList}
     />
   );
 }
