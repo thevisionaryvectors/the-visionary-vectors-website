@@ -22,9 +22,9 @@
     /* Newsletter light mode tokens */
     --nl-bg:                #ffffff;
     --nl-grid:              rgba(0,0,0,0.07);
-    --nl-text:              #1e293b;
-    --nl-text-muted:        #64748b;
-    --nl-text-subtle:       #94a3b8;
+    --nl-text:              #0f172a;
+    --nl-text-muted:        #1e293b;
+    --nl-text-subtle:       #334155;
     --nl-heading:           #000000;
     --nl-card-bg:           #f8fafc;
     --nl-card-border:       #e2e8f0;
@@ -632,7 +632,7 @@ body {
 .nl-bento-duo  { grid-column: span 2; }
 
 /* Hero card gets bigger title + more breathing room */
-.nl-bento-hero .nl-bento-title { font-size: 1.45rem; }
+.nl-bento-hero .nl-bento-title { font-size: 1rem; }
 .nl-bento-hero .nl-bento-desc  { font-size: 0.92rem; }
 
 .nl-bento-card {
@@ -654,7 +654,7 @@ body {
 
 .nl-bento-label {
   display: inline-block;
-  font-size: 0.68rem;
+  font-size: 0.68rem !important;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.9px;
@@ -674,7 +674,7 @@ body {
 .nl-bento-title a { color: inherit; text-decoration: none; }
 .nl-bento-title a:hover { color: #60a5fa; }
 
-.nl-bento-wide .nl-bento-title { font-size: 1.3rem; }
+.nl-bento-wide .nl-bento-title { font-size: 1rem; }
 
 .nl-bento-desc {
   color: var(--nl-text-muted);
