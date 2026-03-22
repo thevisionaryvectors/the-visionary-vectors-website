@@ -113,24 +113,6 @@ export default function NewsletterContent({
 
         {/* Bento Grid - mobile-first single column, grid on md+ */}
         <div className="flex flex-col gap-4 md:grid md:grid-cols-3 md:gap-4 md:mt-1">
-          {/* 0️⃣ Editor's Note — full width */}
-          <div className="nl-bento-card notebook-dotted-border md:col-span-3">
-            <span className="nl-bento-label" style={{ color: '#c084fc' }}>From my notebook</span>
-            <p className="nl-bento-desc text-[0.92rem] leading-[1.75] max-w-none">
-              The AI landscape is rapidly shifting from simple chatbots to autonomous, action-taking agents. On the consumer side, I can&apos;t wait to try Gemini in Google Maps when it finally hits India! But for us builders, the real excitement is under the hood. Karpathy&apos;s Autoresearch is already the next big thing—I had a blast running it this weekend to train a Hindi GPT and will share those wild results soon.
-            </p>
-            <p className="nl-bento-desc text-[0.92rem] leading-[1.75] max-w-none">
-              Huge kudos to the developers behind all the recent agent framework updates. Paired with NVIDIA&apos;s new open datasets and the cost-effective reasoning of Nemotron 3, playing around with agents is getting way cheaper and easier. Core infrastructure is evolving just as fast.
-            </p>
-            <p className="nl-bento-desc text-[0.92rem] leading-[1.75] max-w-none">
-              Native multimodal embeddings are going to completely change the game for RAG systems, seamlessly bridging text and vision. We&apos;re also seeing a wave of specialized assistants orchestrating complex workflows, from Microsoft Copilot Coworkers and Perplexity Computer to highly capable healthcare AI (giving us all one more excuse to avoid the doctor!).
-            </p>
-            <p className="nl-bento-desc text-[0.92rem] leading-[1.75] max-w-none">
-              Finally, it&apos;s incredibly inspiring to see this tech applied to real-world crises, like Google&apos;s Groundsource leveraging AI for disaster detection and management.
-            </p>
-            <p className="mt-auto self-end text-[0.82rem] italic" style={{ color: '#c084fc' }}>— Ayushi</p>
-          </div>
-
           {/* Row 1 — Big Story (col 1-2) */}
           {bigStories.length > 0 && (
             <div className="nl-bento-card flex flex-col gap-6 md:col-span-2">
@@ -165,28 +147,73 @@ export default function NewsletterContent({
             </div>
           )}
 
-          {/* Rows 1+2 right — Agent Framework Updates (spans 2 rows) */}
-          <div className="nl-bento-card md:col-span-1 md:row-span-2">
-            <span className="nl-bento-label" style={{ color: '#34d399' }}>Agent Framework Updates</span>
-            {agentFrameworkUpdates.length > 0 ? (
-              <div className="flex flex-col gap-3 mt-1">
-                {agentFrameworkUpdates.map((item) => (
-                  <div key={item.id} className="flex flex-col gap-1">
-                    <h3 className="nl-bento-title m-0">
-                      {item.link ? (
-                        <a href={item.link} target="_blank" rel="noopener noreferrer">{item.title}</a>
-                      ) : item.title}
-                    </h3>
-                    {item.description && <p className="nl-bento-desc">{item.description}</p>}
-                  </div>
-                ))}
+          {/* Col 3 rows 1+2 — Agent Framework (compact) + Interesting Reads (grows) */}
+          <div className="flex flex-col gap-4 md:col-span-1 md:row-span-2">
+            <div className="nl-bento-card">
+              <span className="nl-bento-label" style={{ color: '#34d399' }}>Agent Framework Updates</span>
+              {agentFrameworkUpdates.length > 0 ? (
+                <div className="flex flex-col gap-3 mt-1">
+                  {agentFrameworkUpdates.map((item) => (
+                    <div key={item.id} className="flex flex-col gap-1">
+                      <h3 className="nl-bento-title m-0">
+                        {item.link ? (
+                          <a href={item.link} target="_blank" rel="noopener noreferrer">{item.title}</a>
+                        ) : item.title}
+                      </h3>
+                      {item.description && (
+                        item.description.includes('•') ? (
+                          <ul className="nl-bento-body list-disc pl-5 !border-l-0">
+                            {item.description.split('•').filter(Boolean).map((point: string, idx: number) => (
+                              <li key={idx}>{point.trim()}</li>
+                            ))}
+                          </ul>
+                        ) : (
+                          <p className="nl-bento-desc">{item.description}</p>
+                        )
+                      )}
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="nl-bento-desc">No updates this week.</p>
+              )}
+            </div>
+
+            {interestingLinks.length > 0 && (
+              <div className="nl-bento-card flex-1">
+                <span className="nl-bento-label" style={{ color: '#e879f9' }}>Interesting Reads</span>
+                <div className="flex flex-col gap-4">
+                  {interestingLinks.map((item) => (
+                    <div key={item.id} className="flex flex-col gap-1">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <h3 className="nl-bento-title m-0">
+                          {item.link ? (
+                            <a href={item.link} target="_blank" rel="noopener noreferrer">{item.title}</a>
+                          ) : item.title}
+                        </h3>
+                      </div>
+                      {item.description.includes('•') ? (
+                        <>
+                          {item.description.split('•')[0].trim() && (
+                            <p className="nl-bento-desc">{item.description.split('•')[0].trim()}</p>
+                          )}
+                          <ul className="nl-bento-body list-disc pl-5 !border-l-0">
+                            {item.description.split('•').slice(1).filter(Boolean).map((point: string, idx: number) => (
+                              <li key={idx}>{point.trim()}</li>
+                            ))}
+                          </ul>
+                        </>
+                      ) : (
+                        <p className="nl-bento-desc">{item.description}</p>
+                      )}
+                    </div>
+                  ))}
+                </div>
               </div>
-            ) : (
-              <p className="nl-bento-desc">No updates this week.</p>
             )}
           </div>
 
-          {/* Row 2 — Research & Techniques (col 1) | Tools for AI Engineers (col 2) */}
+          {/* Row 2 — Research & Techniques (col 1) | Industry & Applications (col 2) */}
           {researchPapers.length > 0 && (
             <div className="nl-bento-card md:col-span-1">
               <span className="nl-bento-label" style={{ color: '#60a5fa' }}>Research & Techniques</span>
@@ -198,7 +225,20 @@ export default function NewsletterContent({
                         <a href={researchPaper.link} target="_blank" rel="noopener noreferrer">{researchPaper.name}</a>
                       </h3>
                     </div>
-                    <p className="nl-bento-desc">{researchPaper.description}</p>
+                    {researchPaper.description.includes('•') ? (
+                      <>
+                        {researchPaper.description.split('•')[0].trim() && (
+                          <p className="nl-bento-desc">{researchPaper.description.split('•')[0].trim()}</p>
+                        )}
+                        <ul className="nl-bento-body list-disc pl-5 !border-l-0">
+                          {researchPaper.description.split('•').slice(1).filter(Boolean).map((point: string, idx: number) => (
+                            <li key={idx}>{point.trim()}</li>
+                          ))}
+                        </ul>
+                      </>
+                    ) : (
+                      <p className="nl-bento-desc">{researchPaper.description}</p>
+                    )}
                   </div>
                 ))}
               </div>
@@ -232,11 +272,10 @@ export default function NewsletterContent({
             </div>
           )}
 
-          {/* Row 3 — Tools | Interesting Reads */}
-          <div className="flex flex-col md:flex-row gap-4 md:col-span-3">
-            {aiTools.length > 0 && (
-              <div className="nl-bento-card flex-1">
-                <span className="nl-bento-label" style={{ color: '#a3e635' }}>Productivity Tools</span>
+          {/* Row 3 — Developer Tools */}
+          {aiTools.length > 0 && (
+            <div className="nl-bento-card md:col-span-3">
+              <span className="nl-bento-label" style={{ color: '#a3e635' }}>Developer Tools</span>
                 <div className="flex flex-col gap-4">
                   {aiTools.map((aiTool) => (
                     <div key={aiTool.id} className="flex flex-col gap-1">
@@ -247,32 +286,25 @@ export default function NewsletterContent({
                           ) : aiTool.name}
                         </h3>
                       </div>
-                      <p className="nl-bento-desc">{aiTool.description}</p>
+                      {aiTool.description.includes('•') ? (
+                        <>
+                          {aiTool.description.split('•')[0].trim() && (
+                            <p className="nl-bento-desc">{aiTool.description.split('•')[0].trim()}</p>
+                          )}
+                          <ul className="nl-bento-body list-disc pl-5 !border-l-0">
+                            {aiTool.description.split('•').slice(1).filter(Boolean).map((point: string, idx: number) => (
+                              <li key={idx}>{point.trim()}</li>
+                            ))}
+                          </ul>
+                        </>
+                      ) : (
+                        <p className="nl-bento-desc">{aiTool.description}</p>
+                      )}
                       </div>
                   ))}
                 </div>
               </div>
             )}
-            {interestingLinks.length > 0 && (
-              <div className="nl-bento-card flex-1">
-                <span className="nl-bento-label" style={{ color: '#e879f9' }}>Interesting Reads</span>
-                <div className="flex flex-col gap-4">
-                  {interestingLinks.map((item) => (
-                    <div key={item.id} className="flex flex-col gap-1">
-                      <div className="flex items-center gap-2 flex-wrap">
-                        <h3 className="nl-bento-title m-0">
-                          {item.link ? (
-                            <a href={item.link} target="_blank" rel="noopener noreferrer">{item.title}</a>
-                          ) : item.title}
-                        </h3>
-                      </div>
-                      <p className="nl-bento-desc">{item.description}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
         </div>
       </div>
     </div>
