@@ -82,7 +82,7 @@ export default async function NewsletterPage() {
   const newsletterId = newsletter.id;
 
   const [bigStories, researchPapers, aiTools, aiSystems, interestingLinksList, agentFrameworkUpdatesList] = await Promise.all([
-    (await sql`SELECT * FROM big_story WHERE newsletter_id = ${newsletterId}`) as BigStory[],
+    (await sql`SELECT * FROM big_story WHERE newsletter_id = ${newsletterId} ORDER BY sort_order ASC`) as BigStory[],
     (await sql`SELECT * FROM research_papers WHERE newsletter_id = ${newsletterId} ORDER BY sort_order ASC`) as ResearchPaper[],
     (await sql`SELECT * FROM tools WHERE newsletter_id = ${newsletterId}`) as AiTool[],
     (await sql`SELECT * FROM model_releases WHERE newsletter_id = ${newsletterId} ORDER BY sort_order ASC`) as AiSystem[],
