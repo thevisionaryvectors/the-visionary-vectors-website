@@ -3,8 +3,6 @@ import { sql } from '@/lib/db';
 import { sendEmail } from '@/lib/mailer';
 import { welcomeEmailHtml } from '@/lib/emailTemplates';
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://the-visionary-vectors-website.vercel.app';
-
 export async function POST(req: NextRequest) {
   const { email } = await req.json();
 
@@ -27,21 +25,12 @@ export async function POST(req: NextRequest) {
 
   await sql`INSERT INTO subscribers (email) VALUES (${email})`;
 
-  // Fetch the latest newsletter
-  const latestNewsletter = await sql`SELECT * FROM newsletters ORDER BY issue_date DESC LIMIT 1`;
-  const newsletter = latestNewsletter[0] as { id: number; title: string; subtitle: string; issue_date: string } | undefined;
-  const latestIssueUrl = newsletter ? `${BASE_URL}/newsletter/${newsletter.id}` : `${BASE_URL}/newsletter`;
-
-  const issueDate = newsletter
-    ? new Date(newsletter.issue_date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
-    : '';
-
   // Send welcome email
   try {
     await sendEmail({
       to: email,
       subject: 'Welcome to Prompt Notes 🤍',
-      html: welcomeEmailHtml(latestIssueUrl),
+      html: welcomeEmailHtml('https://www.thevisionaryvectorsblog.com/newsletter'),
     });
   } catch (err) {
     console.error('Failed to send welcome email:', err);
