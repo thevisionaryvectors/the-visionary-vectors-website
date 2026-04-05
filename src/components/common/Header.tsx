@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 
 export const Header = () => {
   const pathname = usePathname();
-  if (pathname === '/newsletter') return null;
+  if (pathname === '/newsletter' || pathname.startsWith('/newsletter/')) return null;
 
   return (
     <motion.header

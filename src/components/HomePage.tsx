@@ -237,7 +237,6 @@ const HomePage = ({ internalBlogs }: HomePageProps) => {
                         <span>{blog.readTime}</span>
                       </div>
                     </div>
-                    <div className={`mt-1.5 w-2 h-2 rounded-full flex-shrink-0 ${blog.categoryColor.replace('text-', 'bg-')}`}></div>
                   </BlogLink>
                 </motion.div>
               ))}

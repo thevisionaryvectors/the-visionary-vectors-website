@@ -43,6 +43,7 @@ export async function getAllInternalBlogsFromDb(): Promise<InternalBlog[]> {
   const rows = await sql`
     SELECT * FROM public.internal_blogs
     WHERE publish_date <= CURRENT_DATE
+    AND category NOT LIKE 'Newsletter%'
     ORDER BY publish_date DESC
   `;
   return (rows as DbBlogRow[]).map(rowToBlog);
