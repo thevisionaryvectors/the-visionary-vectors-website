@@ -21,6 +21,9 @@ export default function MarkdownContent({ content }: MarkdownContentProps) {
     let listType: 'ul' | 'ol' | null = null;
     let currentOlNumber = 1;
     let nextOlNumber = 1;
+    let inCodeBlock = false;
+    let codeBlockLines: string[] = [];
+    let codeBlockLang = '';
 
     const getNextNonEmptyLine = (startIndex: number) => {
       for (let j = startIndex; j < lines.length; j++) {
@@ -53,7 +56,40 @@ export default function MarkdownContent({ content }: MarkdownContentProps) {
     for (let i = 0; i < lines.length; i++) {
       const line = lines[i];
       const trimmedLine = line.trim();
-      
+
+      // Handle fenced code blocks (``` ... ```)
+      if (trimmedLine.startsWith('```')) {
+        if (!inCodeBlock) {
+          if (inList) closeCurrentList(true);
+          inCodeBlock = true;
+          codeBlockLang = trimmedLine.slice(3).trim();
+          codeBlockLines = [];
+        } else {
+          inCodeBlock = false;
+          const rawCode = codeBlockLines.join('\n');
+          const dataCode = encodeURIComponent(rawCode);
+          const escaped = rawCode
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;');
+          const copyBtn = `<button class="copy-btn flex items-center p-1.5 rounded text-gray-400 dark:text-gray-500 hover:text-blue-500 dark:hover:text-blue-300 transition-colors" data-copy="${dataCode}" title="Copy code"><svg xmlns="http://www.w3.org/2000/svg" class="copy-icon w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg><svg xmlns="http://www.w3.org/2000/svg" class="check-icon w-4 h-4 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="color:#4ade80"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg></button>`;
+          const langBadge = codeBlockLang
+            ? `<div class="px-4 py-1.5 border-b border-blue-200 dark:border-blue-900/40 bg-blue-100 dark:bg-[#0a1020] flex items-center justify-between"><span class="text-xs text-blue-500 dark:text-blue-300 font-mono">${codeBlockLang}</span>${copyBtn}</div>`
+            : `<div class="px-2 py-1 border-b border-blue-200 dark:border-blue-900/40 bg-blue-100 dark:bg-[#0a1020] flex items-center justify-end">${copyBtn}</div>`;
+          processedLines.push(
+            `<div class="mt-4 mb-1 rounded-lg overflow-hidden border border-blue-200 dark:border-blue-900/40 bg-blue-50 dark:bg-[#080e1a]">${langBadge}<pre class="p-4 overflow-x-auto m-0 bg-transparent"><code class="text-sm font-mono text-gray-800 dark:text-gray-100" style="white-space: pre;">${escaped}</code></pre></div>`
+          );
+          codeBlockLines = [];
+          codeBlockLang = '';
+        }
+        continue;
+      }
+
+      if (inCodeBlock) {
+        codeBlockLines.push(line);
+        continue;
+      }
+
       // Handle display math ($$...$$)
       if (trimmedLine.startsWith('$$') && trimmedLine.endsWith('$$')) {
         if (inList) {
@@ -115,6 +151,18 @@ export default function MarkdownContent({ content }: MarkdownContentProps) {
         continue;
       }
       
+      // Handle spacer ---
+      if (trimmedLine === '---') {
+        processedLines.push('<div class="mt-4"></div>');
+        continue;
+      }
+
+      // Handle inline code `code`
+      processedLine = processedLine.replace(/`([^`]+)`/g, '<code class="bg-gray-100 dark:bg-gray-800 text-pink-600 dark:text-pink-400 font-mono text-sm px-1.5 py-0.5 rounded">$1</code>');
+
+      // Handle bold+italic ***text***
+      processedLine = processedLine.replace(/\*\*\*([^\*]+)\*\*\*/g, '<em><strong class="text-indigo-600 dark:text-indigo-400">$1</strong></em>');
+
       // Handle bold text **text**
       processedLine = processedLine.replace(/\*\*([^\*]+)\*\*/g, '<strong>$1</strong>');
       
@@ -188,7 +236,13 @@ export default function MarkdownContent({ content }: MarkdownContentProps) {
         continue;
       }
 
-      processedLines.push(processedLine);
+      // Render purely-bold lines as subheadings
+      if (/^<strong>[^<]+<\/strong>$/.test(processedLine.trim())) {
+        const text = processedLine.trim().replace(/<\/?strong>/g, '');
+        processedLines.push(`<h3 class="mt-8 mb-1 text-xl font-bold text-gray-900 dark:text-white">${text}</h3>`);
+      } else {
+        processedLines.push(processedLine);
+      }
     }
     
     // Close any open list at the end
@@ -197,12 +251,42 @@ export default function MarkdownContent({ content }: MarkdownContentProps) {
     }
     
     element.innerHTML = processedLines.join('\n');
+
+    // Wire up copy buttons
+    element.querySelectorAll<HTMLButtonElement>('.copy-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const code = decodeURIComponent(btn.dataset.copy ?? '');
+        const copyIcon = btn.querySelector('.copy-icon');
+        const checkIcon = btn.querySelector('.check-icon');
+        const showCheck = () => {
+          copyIcon?.classList.add('hidden');
+          checkIcon?.classList.remove('hidden');
+          setTimeout(() => {
+            copyIcon?.classList.remove('hidden');
+            checkIcon?.classList.add('hidden');
+          }, 2000);
+        };
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(code).then(showCheck).catch(() => {});
+        } else {
+          const ta = document.createElement('textarea');
+          ta.value = code;
+          ta.style.position = 'fixed';
+          ta.style.opacity = '0';
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+          showCheck();
+        }
+      });
+    });
   }, [content]);
 
   return (
-    <div 
+    <div
       ref={contentRef}
-      className="text-lg text-gray-700 dark:text-gray-300 leading-normal whitespace-pre-line"
+      className="text-lg text-gray-700 dark:text-gray-300 leading-normal whitespace-pre-line max-w-[680px]"
       style={{ lineHeight: '1.6' }}
     />
   );

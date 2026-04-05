@@ -1,145 +1,218 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
-import { getBlogBySlugFromDb } from '@/lib/blogDb';
+import { getBlogBySlugFromDb, getAllInternalBlogsFromDb } from '@/lib/blogDb';
+import { externalBlogPosts } from '@/lib/blogPosts';
 import MarkdownContent from '@/components/common/MarkdownContent';
 import ArticleToc from '@/components/common/ArticleToc';
+import ArticleRightSidebar from '@/components/common/ArticleRightSidebar';
+import ArticleFooterBar from '@/components/common/ArticleFooterBar';
+import { articleExtras } from '@/lib/articleExtras';
 
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const blog = await getBlogBySlugFromDb(slug);
+  const [blog, allInternalBlogs] = await Promise.all([
+    getBlogBySlugFromDb(slug),
+    getAllInternalBlogsFromDb(),
+  ]);
 
   if (!blog) {
     notFound();
   }
 
+  const extras = articleExtras[slug] ?? {};
+
+  // Build related posts: other internal blogs + external, excluding current
+  const internalRelated = allInternalBlogs
+    .filter((b) => b.slug !== slug)
+    .map((b) => ({
+      title: b.title,
+      date: b.date,
+      readTime: b.readTime,
+      url: `/article/${b.slug}`,
+      isInternal: true,
+    }));
+
+  const externalRelated = externalBlogPosts.map((b) => ({
+    title: b.title,
+    date: b.date,
+    readTime: b.readTime,
+    url: b.url,
+    isInternal: false,
+  }));
+
+  const relatedPosts = [...internalRelated, ...externalRelated].slice(0, 4);
+
+  const pageUrl = `https://the-visionary-vectors-website.vercel.app/article/${slug}`;
+
   return (
     <div className="min-h-screen pt-20 bg-white dark:bg-black bg-grid">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Back to Ayushi's Page */}
-        <Link
-          href="/ayushi"
-          className="inline-flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 mb-8 transition-colors"
-        >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
-          Back to Ayushi&apos;s Space
-        </Link>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
 
-        <div className="flex gap-12">
-          {/* Left Sidebar - Table of Contents (client component) */}
+        {/* Breadcrumb */}
+        <nav className="flex items-center gap-2 text-sm mb-8 text-gray-500 dark:text-gray-400">
+          <Link href="/ayushi" className="hover:text-gray-900 dark:hover:text-gray-200 transition-colors">
+            Home
+          </Link>
+          {blog.category.startsWith('Newsletter') && (
+            <>
+              <span>|</span>
+              <Link href="/newsletter" className="hover:text-gray-900 dark:hover:text-gray-200 transition-colors">
+                Newsletter
+              </Link>
+              <span>|</span>
+              <span className="text-gray-900 dark:text-white font-medium">{blog.category}</span>
+            </>
+          )}
+        </nav>
+
+        {/* Three-column layout */}
+        <div className="flex gap-8 items-start">
+
+          {/* Left – Table of Contents */}
           <ArticleToc blog={blog} />
 
-          {/* Main Content */}
-          <main className="flex-1 max-w-3xl">
+          {/* Center – Main Article */}
+          <main className="flex-1 min-w-0">
+
             {/* Article Header */}
-            <div className="mb-12">
-              <div className="text-sm text-gray-500 dark:text-gray-400 mb-4 flex items-center gap-4">
-                <span className={blog.categoryColor}>{blog.category}</span>
-                <span>•</span>
-                <span>{blog.date}</span>
-                <span>•</span>
-                <span>{blog.readTime}</span>
+            <div className="mb-8">
+              <div className="flex items-center gap-3 text-sm mb-4 flex-wrap">
+                <span className={`font-semibold uppercase tracking-wide text-xs ${blog.categoryColor}`}>
+                  {blog.category}
+                </span>
+                <span className="text-gray-400 dark:text-gray-600">·</span>
+                <span className="text-gray-500 dark:text-gray-400">{blog.date}</span>
+                <span className="text-gray-400 dark:text-gray-600">·</span>
+                <span className="text-gray-500 dark:text-gray-400">{blog.readTime}</span>
               </div>
-              <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100 mb-6 leading-tight">
+              <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4 leading-tight">
                 {blog.title}
               </h1>
-              <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
+              <p className="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
                 {blog.description}
               </p>
             </div>
 
+            {/* TL;DR box */}
+            {extras.tldr && extras.tldr.length > 0 && (
+              <div className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-5 mb-8">
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="text-lg">💡</span>
+                  <span className="font-bold text-gray-900 dark:text-white text-sm tracking-wide">TL;DR</span>
+                </div>
+                <ul className="space-y-2">
+                  {extras.tldr.map((item, i) => (
+                    <li key={i} className="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-400 leading-snug">
+                      <span className="text-indigo-500 font-bold mt-0.5 flex-shrink-0">•</span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
             {/* Featured Image */}
             {blog.featuredImage ? (
-              <div className="mb-12 rounded-xl overflow-hidden">
-                <Image src={blog.featuredImage} alt={blog.title} width={1200} height={630} className="w-full h-auto" />
+              <div className="mb-10 rounded-xl overflow-hidden">
+                <Image
+                  src={blog.featuredImage}
+                  alt={blog.title}
+                  width={1200}
+                  height={630}
+                  className="w-full h-auto"
+                />
                 {blog.featuredImageCaption && (
-                  <p className="text-sm text-gray-500 dark:text-gray-400 text-center mt-2 italic">
+                  <p className="text-xs text-gray-400 dark:text-gray-500 text-center mt-2 italic">
                     {blog.featuredImageCaption}
                   </p>
                 )}
               </div>
             ) : (
-              <div className="mb-12 rounded-xl overflow-hidden bg-gradient-to-br from-blue-100 via-purple-50 to-pink-100 dark:from-blue-900/20 dark:via-purple-900/20 dark:to-pink-900/20">
-                <div className="aspect-video relative">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-center p-8">
-                      <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center">
-                        <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
-                      </div>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm">
-                        Featured Image Placeholder
-                      </p>
-                    </div>
-                  </div>
+              <div className="mb-10 rounded-xl overflow-hidden bg-gradient-to-br from-blue-100 via-purple-50 to-pink-100 dark:from-blue-900/20 dark:via-purple-900/20 dark:to-pink-900/20 aspect-video flex items-center justify-center">
+                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center">
+                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
                 </div>
               </div>
             )}
 
-            {/* Article Content */}
-            <article className="prose prose-lg dark:prose-invert max-w-none">
+            {/* Sections */}
+            <article>
               {blog.sections.map((section) => (
-                <section key={section.id} id={section.id} className="mb-16 scroll-mt-24">
-                  <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">
+                <section key={section.id} id={section.id} className="mb-12 scroll-mt-24">
+                  <h2 className="flex items-start gap-2 text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-5 leading-tight">
+                    <span className="text-indigo-500 dark:text-indigo-400 font-mono select-none flex-shrink-0">#</span>
                     {section.title}
                   </h2>
 
-                  {/* Media content if exists */}
+                  {/* Media */}
                   {section.mediaUrl && (
-                    <div className="my-8 rounded-lg overflow-hidden">
+                    <div className="my-6 rounded-xl overflow-hidden">
                       {section.mediaType === 'image' || section.mediaType === 'gif' ? (
-                        <div>
-                          <Image src={section.mediaUrl} alt={section.mediaCaption || section.title} width={1200} height={630} className="w-full h-auto" />
+                        <>
+                          <Image
+                            src={section.mediaUrl}
+                            alt={section.mediaCaption || section.title}
+                            width={1200}
+                            height={630}
+                            className="w-full h-auto"
+                          />
                           {section.mediaCaption && (
-                            <p className="text-sm text-gray-500 dark:text-gray-400 text-center mt-2 italic">
+                            <p className="text-xs text-gray-400 dark:text-gray-500 text-center mt-2 italic">
                               {section.mediaCaption}
                             </p>
                           )}
-                        </div>
+                        </>
                       ) : section.mediaType === 'video' ? (
-                        <div>
-                          <video controls className="w-full h-auto">
+                        <>
+                          <video controls className="w-full h-auto rounded-xl">
                             <source src={section.mediaUrl} type="video/mp4" />
-                            Your browser does not support the video tag.
                           </video>
                           {section.mediaCaption && (
-                            <p className="text-sm text-gray-500 dark:text-gray-400 text-center mt-2 italic">
+                            <p className="text-xs text-gray-400 dark:text-gray-500 text-center mt-2 italic">
                               {section.mediaCaption}
                             </p>
                           )}
-                        </div>
-                      ) : (
-                        <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-4">
-                          <p className="text-sm text-gray-500 dark:text-gray-400 text-center">
-                            Media content placeholder
-                          </p>
-                        </div>
-                      )}
+                        </>
+                      ) : null}
                     </div>
                   )}
 
-                  {/* Text content */}
                   <MarkdownContent content={section.content} />
                 </section>
               ))}
 
-              {/* Author Section */}
-              <div className="mt-16 pt-8 border-t border-gray-200 dark:border-gray-800">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold">
-                    {blog.author.charAt(0)}
-                  </div>
-                  <div>
-                    <p className="font-semibold text-gray-900 dark:text-gray-100">{blog.author}</p>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">AI Engineer</p>
-                  </div>
+              {/* Author */}
+              <div className="mt-10 pt-6 border-t border-gray-200 dark:border-gray-800 flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
+                  {blog.author.charAt(0)}
+                </div>
+                <div>
+                  <p className="font-semibold text-sm text-gray-900 dark:text-white">{blog.author}</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">AI Engineer</p>
                 </div>
               </div>
+
+              {/* Was this helpful */}
+              <ArticleFooterBar
+                articleSlug={slug}
+                title={blog.title}
+                url={pageUrl}
+              />
             </article>
           </main>
+
+          {/* Right Sidebar */}
+          <ArticleRightSidebar
+            nutshell={extras.nutshell}
+            relatedPosts={relatedPosts}
+            nextPostSlug={extras.nextPostSlug}
+            nextPostTitle={extras.nextPostTitle}
+            nextPostDescription={extras.nextPostDescription}
+          />
+
         </div>
       </div>
     </div>

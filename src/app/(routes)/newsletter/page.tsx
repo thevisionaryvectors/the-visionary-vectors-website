@@ -70,15 +70,15 @@ interface AgentFrameworkUpdate {
 
 /* ─── Newsletter Page ────────────────────────────────────────── */
 export default async function NewsletterPage() {
-  const newsletters = await sql`
-    SELECT * FROM newsletters ORDER BY issue_date DESC LIMIT 1
+  const allNewsletters = await sql`
+    SELECT * FROM newsletters ORDER BY issue_date DESC
   ` as Newsletter[];
 
-  if (newsletters.length === 0) {
+  if (allNewsletters.length === 0) {
     return <div className="nl-root"><p style={{ color: '#94a3b8' }}>No newsletter found.</p></div>;
   }
 
-  const newsletter = newsletters[0];
+  const newsletter = allNewsletters[0];
   const newsletterId = newsletter.id;
 
   const [bigStories, researchPapers, aiTools, aiSystems, interestingLinksList, agentFrameworkUpdatesList] = await Promise.all([
@@ -93,10 +93,8 @@ export default async function NewsletterPage() {
   return (
     <NewsletterContent
       newsletter={newsletter}
+      allNewsletters={allNewsletters}
       bigStories={bigStories}
-      researchPapers={researchPapers}
-      aiTools={aiTools}
-      aiSystems={aiSystems}
       interestingLinks={interestingLinksList}
       agentFrameworkUpdates={agentFrameworkUpdatesList}
     />
