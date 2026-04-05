@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { sql } from '@/lib/db';
-import { sendEmail } from '@/lib/mailer';
+import { sendBatchEmails } from '@/lib/mailer';
 import { weeklyNewsletterEmailHtml } from '@/lib/emailTemplates';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://the-visionary-vectors-website.vercel.app';
@@ -28,19 +28,23 @@ export async function GET(req: NextRequest) {
   }
 
   const emails = (subscribers as { email: string }[]).map((s) => s.email);
+  const html = weeklyNewsletterEmailHtml({
+    issueDate,
+    featuredIssueUrl: `${BASE_URL}/article/how-claude-code-was-leaked-and-how-to-prevent-it`,
+    handsInStackUrl: `${BASE_URL}/article/google-adk-skills-explained`,
+  });
+
+  const BATCH_SIZE = 50;
   let sent = 0;
 
-  for (const to of emails) {
-    await sendEmail({
+  for (let i = 0; i < emails.length; i += BATCH_SIZE) {
+    const batch = emails.slice(i, i + BATCH_SIZE).map((to) => ({
       to,
       subject: 'Prompt Notes — Issue 4 is live',
-      html: weeklyNewsletterEmailHtml({
-        issueDate,
-        featuredIssueUrl: `${BASE_URL}/article/how-claude-code-was-leaked-and-how-to-prevent-it`,
-        handsInStackUrl: `${BASE_URL}/article/google-adk-skills-explained`,
-      }),
-    });
-    sent++;
+      html,
+    }));
+    await sendBatchEmails(batch);
+    sent += batch.length;
   }
 
   return NextResponse.json({ sent, message: `Weekly email sent to ${sent} subscriber(s)` });

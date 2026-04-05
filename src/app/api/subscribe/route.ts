@@ -37,11 +37,16 @@ export async function POST(req: NextRequest) {
     : '';
 
   // Send welcome email
-  await sendEmail({
-    to: email,
-    subject: 'Welcome to Prompt Notes 🤍',
-    html: welcomeEmailHtml(latestIssueUrl),
-  });
+  try {
+    await sendEmail({
+      to: email,
+      subject: 'Welcome to Prompt Notes 🤍',
+      html: welcomeEmailHtml(latestIssueUrl),
+    });
+  } catch (err) {
+    console.error('Failed to send welcome email:', err);
+    return NextResponse.json({ success: true, emailError: String(err) });
+  }
 
   return NextResponse.json({ success: true });
 }

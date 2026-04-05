@@ -1,12 +1,6 @@
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: process.env.GMAIL_USER,
-    pass: process.env.GMAIL_APP_PASSWORD,
-  },
-});
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function sendEmail({
   to,
@@ -17,10 +11,22 @@ export async function sendEmail({
   subject: string;
   html: string;
 }) {
-  return transporter.sendMail({
-    from: `"Prompt Notes" <${process.env.GMAIL_USER}>`,
-    to: Array.isArray(to) ? to.join(', ') : to,
+  return resend.emails.send({
+    from: 'Prompt Notes <promptnotes@thevisionaryvectorsblog.com>',
+    to: Array.isArray(to) ? to : [to],
     subject,
     html,
   });
+}
+
+export async function sendBatchEmails(
+  emails: { to: string; subject: string; html: string }[]
+) {
+  const messages = emails.map(({ to, subject, html }) => ({
+    from: 'Prompt Notes <promptnotes@thevisionaryvectorsblog.com>',
+    to: [to],
+    subject,
+    html,
+  }));
+  return resend.batch.send(messages);
 }
