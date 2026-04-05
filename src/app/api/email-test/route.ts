@@ -12,13 +12,13 @@ export async function GET(req: NextRequest) {
 
   await sendEmail({
     to: email,
-    subject: '[TEST] Welcome to Prompt Notes 🤍',
+    subject: 'Welcome to Prompt Notes 🤍',
     html: welcomeEmailHtml(`${BASE_URL}/newsletter`),
   });
 
   await sendEmail({
     to: email,
-    subject: '[TEST] Prompt Notes — Issue 4 is live',
+    subject: 'Prompt Notes — Issue 4 is live',
     html: weeklyNewsletterEmailHtml({
       issueDate: 'April 5, 2026',
       featuredIssueUrl: `${BASE_URL}/article/how-claude-code-was-leaked-and-how-to-prevent-it`,
