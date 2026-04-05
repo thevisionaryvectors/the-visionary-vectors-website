@@ -1,6 +1,8 @@
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+function getResend() {
+  return new Resend(process.env.RESEND_API_KEY);
+}
 
 export async function sendEmail({
   to,
@@ -11,7 +13,7 @@ export async function sendEmail({
   subject: string;
   html: string;
 }) {
-  return resend.emails.send({
+  return getResend().emails.send({
     from: 'Prompt Notes <promptnotes@thevisionaryvectorsblog.com>',
     to: Array.isArray(to) ? to : [to],
     subject,
@@ -28,5 +30,5 @@ export async function sendBatchEmails(
     subject,
     html,
   }));
-  return resend.batch.send(messages);
+  return getResend().batch.send(messages);
 }
