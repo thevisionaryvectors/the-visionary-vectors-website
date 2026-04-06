@@ -48,6 +48,14 @@ const HomePage = ({ internalBlogs }: HomePageProps) => {
 
   return (
     <div className="min-h-screen bg-white dark:bg-black text-gray-900 dark:text-white pt-20 bg-grid">
+      {/* Announcement bar */}
+      <div className="bg-gradient-to-r from-indigo-600 to-green-600 text-white text-sm font-medium py-2 px-4 text-center">
+        Read the latest issue of Prompt Notes{' '}
+        <Link href="/newsletter" className="underline underline-offset-2 font-semibold hover:opacity-80 transition-opacity">
+          HERE
+        </Link>
+        {' '}→
+      </div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch lg:grid-rows-1">
 
