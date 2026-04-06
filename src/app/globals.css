@@ -61,7 +61,7 @@
 /* Newsletter dark mode token overrides — .dark class is on <html> via DarkModeContext */
 .dark .nl-root {
   --nl-bg:                #07050f;
-  --nl-grid:              rgba(180,160,255,0.06);
+  --nl-grid:              rgba(180,160,255,0.10);
   --nl-text:              #e2e8f0;
   --nl-text-muted:        #94a3b8;
   --nl-text-subtle:       #94a3b8;
@@ -115,8 +115,8 @@ body {
 
 .dark .bg-grid {
   background-image:
-    linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+    linear-gradient(rgba(255,255,255,0.10) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.10) 1px, transparent 1px);
   background-size: 24px 24px;
 }
 

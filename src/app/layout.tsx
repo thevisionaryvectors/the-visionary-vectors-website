@@ -28,7 +28,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+    <html lang="en" className="scroll-smooth dark" suppressHydrationWarning>
       <body className={`${googleSans.variable} ${googleMono.variable} antialiased bg-white dark:bg-black text-black dark:text-white`}>
         <DarkModeProvider>
           <Header />
