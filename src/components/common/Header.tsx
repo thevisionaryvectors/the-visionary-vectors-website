@@ -21,12 +21,6 @@ export const Header = () => {
           </Link>
           
           <nav className="hidden md:flex items-center space-x-8">
-            <Link href="/" className="text-black dark:text-white hover:text-blue-600 dark:hover:text-blue-500 transition-colors font-medium">
-              Ayushi Sahu
-            </Link>
-            <span className="text-gray-400 dark:text-gray-600 cursor-default font-medium">
-              Shreya Singhee
-            </span>
           </nav>
 
           {/* Mobile Menu Button */}
