@@ -70,7 +70,7 @@ export default function ArticleToc({ blog }: ArticleTocProps) {
         <div className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-4">
           <p className="text-sm font-semibold text-gray-900 dark:text-white mb-1">Enjoying the post?</p>
           <p className="text-xs text-gray-500 dark:text-gray-400 mb-3 leading-relaxed">
-            Get weekly AI insights, builds and deep dives.
+            Weekly deep dives on algorithms and system design.
           </p>
           <Link
             href="/newsletter"
