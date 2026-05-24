@@ -50,7 +50,7 @@ const HomePage = ({ internalBlogs }: HomePageProps) => {
     <div className="min-h-screen bg-white dark:bg-black text-gray-900 dark:text-white pt-20 bg-grid">
       {/* Announcement bar */}
       <div className="bg-gradient-to-r from-indigo-600 to-green-600 text-white text-sm font-medium py-2 px-4 text-center">
-        Prompt Notes will be back!!
+        Prompt notes will be back soon.
       </div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch lg:grid-rows-1">
@@ -74,7 +74,7 @@ const HomePage = ({ internalBlogs }: HomePageProps) => {
                   </svg>
                 </div>
                 <h3 className="font-bold text-gray-900 dark:text-white text-sm mb-1">Prompt Notes</h3>
-                <p className="text-gray-500 dark:text-gray-400 text-xs leading-relaxed mb-3">Get weekly AI insights, builds and deep dives — straight to your inbox.</p>
+                <p className="text-gray-500 dark:text-gray-400 text-xs leading-relaxed mb-3">Weekly deep dives on algorithms and system design — straight to your inbox.</p>
                 <SubscribeForm
                   label="Subscribe for free"
                   buttonClassName="w-full inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold transition-colors cursor-pointer"
@@ -98,7 +98,7 @@ const HomePage = ({ internalBlogs }: HomePageProps) => {
                   </svg>
                 </div>
                 <h3 className="font-bold text-gray-900 dark:text-white text-sm mb-1">GitHub Projects</h3>
-                <p className="text-gray-500 dark:text-gray-400 text-xs leading-relaxed mb-2">Explore open source AI/ML projects, code repositories, and experiment notebooks.</p>
+                <p className="text-gray-500 dark:text-gray-400 text-xs leading-relaxed mb-2">Explore open source projects, code repositories, and experiment notebooks.</p>
                 <span className="text-sm font-semibold bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent group-hover:from-purple-500 group-hover:to-blue-500 transition-all">
                   {"View Projects \u2192"}
                 </span>

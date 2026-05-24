@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
     await sendEmail({
       to: email,
       subject: 'Welcome to Prompt Notes 🤍',
-      html: welcomeEmailHtml('https://www.thevisionaryvectorsblog.com/newsletter'),
+      html: welcomeEmailHtml('https://www.thevisionaryvectorsblog.com/promptnotes'),
     });
   } catch (err) {
     console.error('Failed to send welcome email:', err);
